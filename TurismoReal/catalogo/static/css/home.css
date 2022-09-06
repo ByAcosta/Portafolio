@@ -1,17 +1,131 @@
-header {
-    display: flex;
-   justify-content: space-around;
-   display: grid;
-    align-items: center; 
+html{   
+    scroll-behavior: smooth;
+}
 
+header {
+    /* display: flex;
+    justify-content: space-around;
+    display: grid;
+    align-items: center;  */
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #eee;
-    border-bottom: 1px solid #eee;
+    background-color: #24262b;
     height: 4rem;
     z-index: 1;
 }
+
+/* SEGUNDO NAVBAR */
+.segundo-nav{
+    position: -webkit-sticky;
+    position: sticky;
+    width: 100%;   
+}
+.segundo-nav .divv{
+    position: s;
+    width: 100%;  height: 100vh;
+    line-height: 100vh;
+}
+/* .segundo-nav section:nth-of-type(2n+1){
+   background: #fcfbf9; 
+}
+.segundo-nav section:nth-of-type(2n){
+    background: #f8f6f1; 
+} */
+/* .segundo-nav div h1{
+   text-align: center;
+   font-size: 70px;
+   text-transform: uppercase;
+} */
+
+.img-content{
+    display: block;
+    height: 450px;
+}
+
+.img1{
+    float: right;
+    margin-left: 8%;
+}
+
+.img2{
+    float: left;
+    margin-right: 8%;
+}
+
+.container .sec2 .titulos{
+    text-align: center;
+    font-family: 'Great Vibes';
+    font-size: 62px;
+}
+
+p {
+    text-align: justify;
+    font-size: 18px;
+    padding-top: 100px;
+    padding-left: 50px;
+}
+
+@media (max-width: 800px) {
+    .sec2 .titulos{
+        margin-top: 400px;
+    };
+
+    .sec .img-content .img1, .img2, p{
+        position: absolute;
+        display: flex;
+        top: 0;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+.segundo-nav .sec-nav{
+    position: sticky;
+    top: 60px;  left: 0;
+    background-color: #24262b;
+    width: 100%;  height: 60px;
+    z-index: 10;
+    padding-left: 0;
+}
+.segundo-nav .sec-nav li{
+    list-style: none;
+    width: calc(100% / 5);  height: 100%;
+    float: left;
+}
+.segundo-nav .sec-nav li a{
+    display: inline-block;
+    width: 100%;  height: 100%;
+    text-align: center;  line-height: 60px;
+    text-decoration: none;  text-transform: uppercase;
+    color: #b3b3b3;
+    transition: all 0.3s;
+}
+.segundo-nav .sec-nav li a:hover{
+    color: #24262b;
+    background: #f49239;
+}
+.segundo-nav .sec-nav li a:active{
+    color: #b3b3b3;
+    background: #24262b;
+}
+
+@media (max-width: 800px){
+    .segundo-nav .sec-nav {
+        position: absolute;
+        display: flex;
+        top: 0;
+        align-items: center;
+        flex-direction: column;
+        height: 400px;
+    }
+    .segundo-nav .sec-nav li, a{
+        display: block;
+        width: 100%;  height: 100%;
+        font-size: 18px;
+    }
+}
+/* FIN SEGNDO NAVBAR */
 
 .burger-wrapper {
     cursor: pointer;
@@ -35,11 +149,16 @@ header {
 
 .label {
     position: absolute;
+    transition: all 0.2s;
+    z-index: 1;
+    color: #b3b3b3;
+}
+
+#label-estadia {
     left: 3%;
     top: 88px;
     font-size: 18px;
     transition: all 0.2s;
-    /* padding: 0 2px; */
     z-index: 1;
     color: #b3b3b3;
 }
@@ -86,7 +205,6 @@ header {
     background: #272530;
     background-color: #24262ba7;
     position: absolute;
-    /* left: 0px; */
     top: 12px;
     width: 100%;
     z-index: -1;
@@ -98,7 +216,6 @@ header {
     background: #272530;
     background-color: #24262ba7;
     position: absolute;
-    /* left: 0px; */
     top: 12px;
     width: 100%;
     z-index: -1;
@@ -110,18 +227,16 @@ header {
     background: #272530;
     background-color: #24262ba7;
     position: absolute;
-    /* left: 0px; */
     top: 12px;
     width: 100%;
     z-index: -1;
 }
 
-
 .text-input:focus {
     border: 2px solid #f49239;
 }
 
-.text-input:focus + .label,
+.text-input:focus + #label-estadia,
 .filled {
     top: 55px;
     color: #f49239;
@@ -252,7 +367,6 @@ header {
     .div-check {
         display: flex;
         align-items: center;
-        align-items: center;
         flex-direction: column;
         height: 400px;
     }
@@ -332,13 +446,13 @@ header {
 
 #burger > div {
     height: 2px;
-    background-color: #000;
+    background-color: #b3b3b3;
     transition: 0.5s;
     z-index: 999;
 }
 
 #menyAvPaa:checked ~ #burger > div {
-  background-color: #fff;
+  background-color: #b3b3b3;
 }
 
 #menyAvPaa:checked ~ #burger > div:nth-child(1) {
