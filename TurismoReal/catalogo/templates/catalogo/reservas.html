@@ -1,0 +1,17 @@
+{% extends 'catalogo/dashboard.html' %}
+
+{% block content%}
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre">
+    <br>
+    <label for="apellido">Apellido</label>
+    <input type="text" name="apellido">
+    <br>
+    <label for="correo">Correo</label>
+    <input type="email" name="correo">
+    <br>
+    <label for="celular">Celular</label>
+    <input type="number" name="celular">
+    <hr>
+    <a href="#"><button class="btn btn-primary">Pagar</button></a>
+{% endblock %}

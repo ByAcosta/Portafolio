@@ -22,7 +22,7 @@
             <!-- * * Tip * * You can use text or an image for your navbar brand.-->
             <!-- * * * * * * When using an image, we recommend the SVG format.-->
             <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
-            <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="index.html">Turismo real</a>
+            <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="{% url 'home' %}">Turismo real</a>
             <!-- Navbar Search Input-->
             <!-- * * Note: * * Visible only on and above the lg breakpoint-->
             <form class="form-inline me-auto d-none d-lg-block me-3">
@@ -147,7 +147,7 @@
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                 Clientes
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'depto' %}">
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                 Departamentos
                             </a>
@@ -162,9 +162,9 @@
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                 Graficos
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'reserva' %}">
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Tablas
+                                Reservas
                             </a>
                             <a class="nav-link" href="#">
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
