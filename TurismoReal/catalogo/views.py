@@ -2,7 +2,7 @@ from sqlite3 import Cursor
 from typing_extensions import runtime
 from django.shortcuts import render ,redirect, get_object_or_404
 from django.views import generic
-from catalogo.models import Usuario ,Depto , Comuna , Region , Rol
+from catalogo.models import *
 from django.http import HttpResponse
 from django.conf import settings
 from django.db import connection
@@ -25,6 +25,7 @@ def Depto(request):
 
         id_depto=request.POST.get('id_depto')
         nombre=request.POST.get('nombre')
+        habitaciones=request.POST.get('habitaciones')
         precio=request.POST.get('precio')
         descripcion=request.POST.get('descripcion')
         disponible=request.POST.get('disponible')
@@ -32,7 +33,7 @@ def Depto(request):
         region_id=request.POST.get('region')
         imagen=request.POST.get('imagen')
         #imagenes=request.FILES['imagen'].read()
-        salida=agregar_depto(id_depto, nombre, precio, descripcion, disponible, comuna_id, region_id, imagen)
+        salida=agregar_depto(id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen)
         if salida == 1:
             data['mensaje'] = 'Agregado correctamente'
             data['Depto'] = lista_deptos()
@@ -142,11 +143,11 @@ def logins(email , contraseña):
     cursor.callproc('SP_LOGIN',[out_cur,email,contraseña,salida])
     return salida.getvalue()
 
-def agregar_depto(id_depto, nombre, precio, descripcion, disponible, comuna_id, region_id, imagen):
+def agregar_depto(id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc("SP_AGREGAR_DEPTO", [id_depto, nombre, precio, descripcion, disponible, comuna_id, region_id, imagen, salida])
+    cursor.callproc("SP_AGREGAR_DEPTO", [id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen, salida])
     return salida.getvalue()
 
 # def eliminar_depto(id_depto):
@@ -155,9 +156,19 @@ def agregar_depto(id_depto, nombre, precio, descripcion, disponible, comuna_id, 
 #     cursor.callproc("SP_ELIMINAR_DEPTO", [id_depto])
 #     return render( request, 'catalogo/depto.html', data)
 
-def modificar_depto(id_depto, nombre, precio, descripcion, disponible, comuna_id, region_id, imagen):
+def modificar_depto(id_depto, nombre, habitaciones,precio, descripcion, disponible, comuna_id, region_id, imagen):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc("SP_MODIFICAR_DEPTO", [id_depto, nombre, precio, descripcion, disponible, comuna_id, region_id, imagen, salida])
-    return salida.getvalue()    
+    cursor.callproc("SP_MODIFICAR_DEPTO", [id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen, salida])
+    return salida.getvalue()
+
+def reservas(request):
+    data = {
+        'Depto':lista_deptos(),
+        'region':lista_region(),
+        'comuna':lista_comuna(),
+        'form':  DeptoForm(),
+    }
+    data['Depto'] = lista_deptos()
+    return render( request, 'catalogo/reservas.html', data)
