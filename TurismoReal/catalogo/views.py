@@ -6,14 +6,8 @@ from catalogo.models import *
 from django.http import HttpResponse
 from django.conf import settings
 from django.db import connection
-<<<<<<< HEAD
-import cx_Oracle
-
-# Create your views here.
-=======
 from .forms import DeptoForm
 import cx_Oracle
->>>>>>> origin/main
 
 def home(request):
     return render( request, 'catalogo/home.html')
@@ -55,16 +49,10 @@ def login(request):
         contraseña = request.POST.get('pass')
         salida = logins(email,contraseña)
         if salida == 1:
-<<<<<<< HEAD
-             return redirect('home')
-        else:
-            data['mensaje']= 'pal pico hermano'
-=======
             return redirect('home')
         else:
             data['mensaje']= 'No se ha podido iniciar sesión'
             return redirect('login')
->>>>>>> origin/main
     return render(request, 'catalogo/login.html',data)
 
 def register(request):
@@ -86,16 +74,9 @@ def register(request):
         rol_id = 3
         salida = registrar(rut,nombre,apellido,username,email,celular,contraseña,direccion,comuna_id,region_id,rol_id)
         if salida == 1:
-<<<<<<< HEAD
-            data['mensaje']= 'fino señores'
-        else:
-            data['mensaje']= 'pal pico hermano'
-
-=======
             data['mensaje']= 'Se ingresó correctamente'
         else:
             data['mensaje']= 'No se ha podido registrar el usuario'
->>>>>>> origin/main
 
     return render(request, 'catalogo/register.html',data)
 
@@ -133,8 +114,6 @@ def lista_region():
 
     return lista
 
-<<<<<<< HEAD
-=======
 def lista_deptos():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -149,7 +128,6 @@ def lista_deptos():
 
     return lista 
 
->>>>>>> origin/main
 def registrar(rut,nombre,apellido,username,email,celular,contraseña,direccion,comuna_id,region_id,rol_id):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -165,10 +143,6 @@ def logins(email , contraseña):
     cursor.callproc('SP_LOGIN',[out_cur,email,contraseña,salida])
     return salida.getvalue()
 
-<<<<<<< HEAD
-
-        
-=======
 def agregar_depto(id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -198,4 +172,3 @@ def reservas(request):
     }
     data['Depto'] = lista_deptos()
     return render( request, 'catalogo/reservas.html', data)
->>>>>>> origin/main

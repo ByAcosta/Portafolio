@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-header {
-    display: flex;
-   justify-content: space-around;
-   display: grid;
-    align-items: center; 
-
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #eee;
-    border-bottom: 1px solid #eee;
-=======
 html{   
     scroll-behavior: smooth;
 }
@@ -24,13 +11,10 @@ header {
     top: 0;
     width: 100%;
     background-color: #24262b;
->>>>>>> origin/main
     height: 4rem;
     z-index: 1;
 }
 
-<<<<<<< HEAD
-=======
 /* SEGUNDO NAVBAR */
 .segundo-nav{
     position: -webkit-sticky;
@@ -143,7 +127,6 @@ p {
 }
 /* FIN SEGNDO NAVBAR */
 
->>>>>>> origin/main
 .burger-wrapper {
     cursor: pointer;
 }
@@ -166,23 +149,16 @@ p {
 
 .label {
     position: absolute;
-<<<<<<< HEAD
-=======
     transition: all 0.2s;
     z-index: 1;
     color: #b3b3b3;
 }
 
 #label-estadia {
->>>>>>> origin/main
     left: 3%;
     top: 88px;
     font-size: 18px;
     transition: all 0.2s;
-<<<<<<< HEAD
-    /* padding: 0 2px; */
-=======
->>>>>>> origin/main
     z-index: 1;
     color: #b3b3b3;
 }
@@ -229,10 +205,6 @@ p {
     background: #272530;
     background-color: #24262ba7;
     position: absolute;
-<<<<<<< HEAD
-    /* left: 0px; */
-=======
->>>>>>> origin/main
     top: 12px;
     width: 100%;
     z-index: -1;
@@ -244,10 +216,6 @@ p {
     background: #272530;
     background-color: #24262ba7;
     position: absolute;
-<<<<<<< HEAD
-    /* left: 0px; */
-=======
->>>>>>> origin/main
     top: 12px;
     width: 100%;
     z-index: -1;
@@ -259,28 +227,16 @@ p {
     background: #272530;
     background-color: #24262ba7;
     position: absolute;
-<<<<<<< HEAD
-    /* left: 0px; */
-=======
->>>>>>> origin/main
     top: 12px;
     width: 100%;
     z-index: -1;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
 .text-input:focus {
     border: 2px solid #f49239;
 }
 
-<<<<<<< HEAD
-.text-input:focus + .label,
-=======
 .text-input:focus + #label-estadia,
->>>>>>> origin/main
 .filled {
     top: 55px;
     color: #f49239;
@@ -411,10 +367,6 @@ p {
     .div-check {
         display: flex;
         align-items: center;
-<<<<<<< HEAD
-        align-items: center;
-=======
->>>>>>> origin/main
         flex-direction: column;
         height: 400px;
     }
@@ -494,21 +446,13 @@ p {
 
 #burger > div {
     height: 2px;
-<<<<<<< HEAD
-    background-color: #000;
-=======
     background-color: #b3b3b3;
->>>>>>> origin/main
     transition: 0.5s;
     z-index: 999;
 }
 
 #menyAvPaa:checked ~ #burger > div {
-<<<<<<< HEAD
-  background-color: #fff;
-=======
   background-color: #b3b3b3;
->>>>>>> origin/main
 }
 
 #menyAvPaa:checked ~ #burger > div:nth-child(1) {
