@@ -1,6 +1,7 @@
 import datetime
 from pyexpat import model
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -27,6 +28,9 @@ class Depto(models.Model):
     imagen = models.ImageField(upload_to="images/", null=True)   
     region = models.ForeignKey('Region', on_delete=models.PROTECT, null=True)
     comuna = models.ForeignKey('Comuna', on_delete=models.PROTECT, null=True)
+
+    def get_absolute_url(self):
+        return reverse('depto-detail', args=[int(self.id_depto)])
      
 class Region(models.Model):
     id_reg = models.IntegerField(primary_key=True)

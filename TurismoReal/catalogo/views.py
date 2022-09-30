@@ -10,9 +10,14 @@ from .forms import DeptoForm
 import cx_Oracle
 
 def home(request):
-    return render( request, 'catalogo/home.html')
+    data = {
+        'Depto':lista_deptos(),
+        'region':lista_region(),
+        'comuna':lista_comuna(),
+    }
+    return render( request, 'home.html',data)
 
-def Depto(request):
+def Deptos(request):
     
     data = {
         'Depto':lista_deptos(),
@@ -40,7 +45,7 @@ def Depto(request):
         else:
             data['mensaje'] = ''
 
-    return render( request, 'catalogo/depto.html', data)
+    return render( request, 'depto.html', data)
 
 def login(request):
     data = {}
@@ -53,7 +58,7 @@ def login(request):
         else:
             data['mensaje']= 'No se ha podido iniciar sesión'
             return redirect('login')
-    return render(request, 'catalogo/login.html',data)
+    return render(request, 'login.html',data)
 
 def register(request):
     data = {
@@ -78,13 +83,13 @@ def register(request):
         else:
             data['mensaje']= 'No se ha podido registrar el usuario'
 
-    return render(request, 'catalogo/register.html',data)
+    return render(request, 'register.html',data)
 
 def dashboard(request):
-    return render(request, 'catalogo/dashboard.html')
+    return render(request, 'dashboard.html')
 
 def mantenedor_C(request):
-    return render(request, 'catalogo/mantenedor_cliente.html')
+    return render(request, 'mantenedor_cliente.html')
     
 def lista_comuna():
     django_cursor = connection.cursor()
@@ -171,4 +176,8 @@ def reservas(request):
         'form':  DeptoForm(),
     }
     data['Depto'] = lista_deptos()
-    return render( request, 'catalogo/reservas.html', data)
+    return render( request, 'reservas.html', data)
+   
+class Deptoxd(generic.DetailView):
+    model = Depto
+    
