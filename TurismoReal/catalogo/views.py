@@ -8,6 +8,7 @@ from django.conf import settings
 from django.db import connection
 from .forms import DeptoForm
 import cx_Oracle
+user = ''
 
 def home(request):
     data = {
@@ -49,15 +50,21 @@ def Deptos(request):
 
 def login(request):
     data = {}
+    global user
     if request.method =='POST':
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
         email = request.POST.get('email')
-        contraseña = request.POST.get('pass')
-        salida = logins(email,contraseña)
-        if salida == 1:
-            return redirect('home')
-        else:
+        passw = request.POST.get('pass')
+        salida = "select * from catalogo_usuario where email = '{}' and contraseña = '{}'".format(email,passw)
+        cursor.execute(salida)
+        s = tuple(cursor.fetchall())
+        if s == ():
             data['mensaje']= 'No se ha podido iniciar sesión'
             return redirect('login')
+        else:
+            return redirect('home')
+
     return render(request, 'login.html',data)
 
 def register(request):
@@ -180,4 +187,8 @@ def reservas(request):
    
 class Deptoxd(generic.DetailView):
     model = Depto
+
+def sample_view(request):
+    current_user = request.user
+    print (current_user.id)  
     
