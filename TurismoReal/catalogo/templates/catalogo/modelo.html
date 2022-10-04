@@ -1,0 +1,66 @@
+{% extends 'catalogo/dashboard.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turimos Real</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    {% block css %}
+    {% endblock %} 
+    <link rel="stylesheet" href="{% static 'app/css/estilos.css' %}">
+    
+</head>
+
+{%block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+<br>
+
+<div class="row">   
+    <div class="col-12 col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h1>Modelo</h1>
+                
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    
+                    <br>
+                    
+                    <div class="d-flex justify-content-left">
+                        <input type="submit" value="Guardar" class="btn btn-primary">
+                        &nbsp;
+                        <button type="reset" class="btn btn-danger">Cancelar</button>
+                    </div>
+
+                    <br>
+
+                    {{mensaje}}  
+                </form>
+
+                <br>
+
+                <a class="nav-link" href="{% url 'listar_modelo' %}">
+                    <button type="button" class="btn btn-primary">Ver Modelos</button>
+                </a>
+                
+                <a class="nav-link" href="{% url 'vehiculo' %}">
+                    <button type="button" class="btn btn-danger">Atras</button>
+                </a>
+            </div>
+        </div>        
+    </div>
+</div>  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+<script src="{% static 'js/menu.js' %}"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

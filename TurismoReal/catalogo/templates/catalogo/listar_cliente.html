@@ -1,0 +1,50 @@
+{% extends 'catalogo/dashboard.html' %}
+
+{% block content %}
+{% load static %}
+<br>
+<br>
+<br>
+<div class="card">
+    <div class="card-body">
+        <h2>Listado de clientes</h2>
+        <table class="table table-stripped table-hover table-responsive">
+            <tr>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Celular</th>
+                <th>Comuna</th>
+                <th>Region</th>
+                <th>Dirección</th>
+                
+                
+
+            </tr>
+            
+            {% for c in clientes %}
+        
+            <tr>
+                <td>{{ c.rut | title}}</td>
+                <td>{{ c.nombre | title}}</td>
+                <td>{{ c.apellido | title}}</td>
+                <td>{{ c.email | title}}</td>
+                <td>{{ c.celular | title}}</td>
+                <td>{{ c.comuna | title}}</td>
+                <td>{{ c.region | title}}</td>
+                <td>{{ c.direccion | title}}</td>
+                <td>
+                    <a href="{% url 'modificar_cliente' c.rut %}" class="btn btn-info btn-sm">Modificar</a>
+                    <a href="{% url 'eliminar_cliente' c.rut %}" class="btn btn-danger btn-sm">Eliminar</a>                   
+                </td>
+            </tr>
+            {% endfor %}
+           
+        
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

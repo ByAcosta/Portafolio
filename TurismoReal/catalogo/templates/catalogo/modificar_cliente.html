@@ -24,20 +24,16 @@
         <div class="card">
             <div class="card-body">
                 <br><br><br>
-                    <h1>Agregar Cliente</h1>
+                    <h1>Modificar Cliente</h1>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form | crispy }}
                         <fieldset>   
                            
                       <div class="d-flex justify-content-end">
-                            <input class="btn btn-sm " style="background-color: #f49237;" type="submit" value="Guardar">
+                            <input class="btn btn-md " style="background-color: #f49237;" type="submit" value="Editar">
                             &nbsp;
-                            <input class="btn btn-sm " style="background-color: #f49237;" type="submit" value="Cancelar">
-                            &nbsp;
-                            <a class="btn btn-sm" style="background-color: #f49237;" href="{% url 'listar_cliente' %}">
-                               Editar             
-                            </a>
+                            <input class="btn btn-md " style="background-color: #f49237;" type="submit" value="Cancelar">
                             </div>
                         </div>         
                         {{mensaje}}
@@ -45,6 +41,4 @@
                     </form>
 
                  
-
-
 {% endblock %}
