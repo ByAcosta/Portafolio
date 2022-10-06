@@ -8,15 +8,34 @@ from django.conf import settings
 from django.db import connection
 from .forms import DeptoForm
 import cx_Oracle
-user = ''
 
+def login(request):
+    data = {}
+    if request.method =='POST':
+        global s
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        rut = request.POST.get('rut')
+        passw = request.POST.get('pass')
+        salida = "select * from catalogo_usuario where rut = '{}' and contraseña = '{}'".format(rut,passw)
+        cursor.execute(salida)
+        s = tuple(cursor.fetchall())    
+        if s == ():
+            data['mensaje']= 'No se ha podido iniciar sesión'
+            return redirect('login')
+        else:
+            return redirect('home')
+
+    return render(request, 'login.html',data)
+    
 def home(request):
     data = {
+        'user':s,
         'Depto':lista_deptos(),
         'region':lista_region(),
         'comuna':lista_comuna(),
     }
-    return render( request, 'home.html',data)
+    return render( request, 'home.html', data)
 
 def Deptos(request):
     
@@ -28,7 +47,7 @@ def Deptos(request):
     }
     
     if request.method == 'POST':
-
+       
         id_depto=request.POST.get('id_depto')
         nombre=request.POST.get('nombre')
         habitaciones=request.POST.get('habitaciones')
@@ -47,25 +66,6 @@ def Deptos(request):
             data['mensaje'] = ''
 
     return render( request, 'depto.html', data)
-
-def login(request):
-    data = {}
-    global user
-    if request.method =='POST':
-        django_cursor = connection.cursor()
-        cursor = django_cursor.connection.cursor()
-        email = request.POST.get('email')
-        passw = request.POST.get('pass')
-        salida = "select * from catalogo_usuario where email = '{}' and contraseña = '{}'".format(email,passw)
-        cursor.execute(salida)
-        s = tuple(cursor.fetchall())
-        if s == ():
-            data['mensaje']= 'No se ha podido iniciar sesión'
-            return redirect('login')
-        else:
-            return redirect('home')
-
-    return render(request, 'login.html',data)
 
 def register(request):
     data = {
@@ -87,13 +87,20 @@ def register(request):
         salida = registrar(rut,nombre,apellido,username,email,celular,contraseña,direccion,comuna_id,region_id,rol_id)
         if salida == 1:
             data['mensaje']= 'Se ingresó correctamente'
+            return redirect('login')
         else:
             data['mensaje']= 'No se ha podido registrar el usuario'
 
     return render(request, 'register.html',data)
 
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    data = {
+        'user':s,
+        'Depto':lista_deptos(),
+        'region':lista_region(),
+        'comuna':lista_comuna(),
+    }
+    return render(request, 'dashboard.html', data)
 
 def mantenedor_C(request):
     return render(request, 'mantenedor_cliente.html')
@@ -186,6 +193,11 @@ def reservas(request):
     return render( request, 'reservas.html', data)
    
 class Deptoxd(generic.DetailView):
+    def get_context_data(self, **kwargs):
+        s
+        context = super().get_context_data(**kwargs)
+        context['user'] = s
+        return context
     model = Depto
 
 def sample_view(request):

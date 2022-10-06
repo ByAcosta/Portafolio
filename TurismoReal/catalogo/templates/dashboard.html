@@ -178,7 +178,9 @@
                     <div class="sidenav-footer">
                         <div class="sidenav-footer-content">
                             <div class="sidenav-footer-subtitle">Sesión inciada por:</div>
-                            <div class="sidenav-footer-title">Valerie Luna</div>
+                            {% for x in user %}
+                                <div class="sidenav-footer-title">{{x.1}}</div>
+                            {% endfor %}
                         </div>
                     </div>
                 </nav>

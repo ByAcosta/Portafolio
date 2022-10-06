@@ -5,7 +5,7 @@
             <div class="div-check" id="top">
                 <div class="div-check-content">
                     <input class="text-input" type="search" id="input-estadia" autocomplete="off" placeholder="Lugar de estadía" required>
-                    <label class="label" for="estadia" id="label-estadia">Estadía</label>
+                    <label class="label" for="input-estadia" id="label-estadia">Estadía</label>
                     <input class="date-style" type="text" name="" id="input-checkin" onclick="(this.type='date')" onblur="(this.type='text')" style="color: #fff">
                     <label class="label-date1" for="input-checkin" id="label-checkin">Check-in</label>
                     <input class="date-style" type="text" name="" id="input-checkout" onclick="(this.type='date')" onblur="(this.type='text')">
@@ -33,13 +33,16 @@
                 <div class="sec2" id="sec2">
                     <br><br><br><br><br><br>
                     <h1 class="titulos">Turismo Real</h1>
+                    <hr>
+                    {% for x in user %}
+                        <h1 class="titulos">{{x.1}}</h1>
+                    {% endfor %}
                     <br><br><br>
                     <div class="img-content">
                         <div class="img1">
                             <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/184305239.jpg?k=2d22fe63ae1f8960e057238c98fb436f7bd9f65854e3a5e918607c5cfa1d0a52&o=&hp=1" alt=""  height="400px">
                         </div>
-                        <!-- <p style="font-size: 18px; text-align: justify; padding-top: 100px; width: 50%;"></p> -->
-                        <p>
+                        <p class="p-home">
                             1Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus cupiditate cum quo aut blanditiis itaque labore perspiciatis dolor laborum. Deleniti, velit exercitationem. Dolorem inventore fuga, sed ipsam optio magnam delectus!
                             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, quam doloribus saepe cum atque, voluptate consequuntur facilis consequatur ea dolores rerum doloremque quia obcaecati beatae earum mollitia, consectetur provident ratione.
                         </p>
@@ -49,11 +52,12 @@
                         <div class="img2">
                             <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/217090350.jpg?k=1652583f1040fdb9f41d7785eb26fbb4f8690a123bf69ad950a839f944381d56&o=&hp=1" alt=""  height="400px">
                         </div>
-                        <p>
+                        <p class="p-home">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis optio incidunt deserunt, perspiciatis vel illo quaerat saepe fugit ipsa nisi itaque inventore enim nam delectus sit ipsum, eligendi fuga possimus!
                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis, facere et. Impedit ut esse itaque tenetur, assumenda nostrum sunt voluptatum et ullam officiis! Voluptas maiores labore laborum dolorem esse eligendi?
                         </p>
                     </div>
+                    
                     <div class="row">
                         {% for x in Depto %}
                         <div class="col-sm-3 " style="background-color:#fff">
