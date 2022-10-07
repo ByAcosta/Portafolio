@@ -37,6 +37,15 @@ def home(request):
     }
     return render( request, 'home.html', data)
 
+def index(request):
+    data = {
+        'user':s,
+        'Depto':lista_deptos(),
+        'region':lista_region(),
+        'comuna':lista_comuna(),
+    }
+    return render( request, 'index.html', data)    
+
 def Deptos(request):
     
     data = {
@@ -198,9 +207,5 @@ class Deptoxd(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['user'] = s
         return context
-    model = Depto
-
-def sample_view(request):
-    current_user = request.user
-    print (current_user.id)  
-    
+        
+    model = Depto    

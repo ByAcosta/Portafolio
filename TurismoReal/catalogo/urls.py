@@ -6,6 +6,7 @@ urlpatterns= [
     path('', login, name="login"),
     path('depto/', Deptos, name="depto"),
     path('home/', home, name="home"),
+    path('index/', index, name="index"),
     path('register/', register, name="register"),
     path('dashboard/', dashboard, name="dashboard"),
     path('dashboard/clientes', mantenedor_C, name="clientes"),

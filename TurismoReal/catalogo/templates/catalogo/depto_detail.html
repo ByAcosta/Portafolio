@@ -2,7 +2,8 @@
 
 {% block content%}
 
-  <form id="regForm" action="/action_page.php">
+  <form id="regForm" action="" method="post">
+    {% csrf_token %}
     <!-- PRIMER PASO -->
     <div class="tab ">
       <h1>INFORMACIÓN PERSONAL</h1>
