@@ -36,6 +36,68 @@
       Habitaciones:
       <p><input  oninput="this.className = ''" name="hab" value="{{ depto.habitaciones }}"></p>
     </div>
+    <!-- TERCER PASO -->
+    <div class="tab">
+      <h2>SERVICIO EXTRA</h2>
+      <br>
+      <!-- modal de transporte -->
+      <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalLg">Transporte</button>
+      <div class="modal fade" id="exampleModalLg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Lista de transportes</h5>
+                      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      {% for x in trasnporte %}
+                        <div class="card card-header-actions">
+                            <div class="card-header">
+                                {{x.precio}}
+                                <button class="btn btn-primary btn-sm">seleccionar</button>
+                            </div>
+                            <div class="card-body">
+                              Descripcion:<p>{{x.descripcion}}</p>
+                              Conductor:<p>{{x.conductor}}</p>
+                              Patente:<p>{{x.patente}}</p>
+                              Modelo:<p>{{x.modelo}}</p>
+                              Marca:<p>{{x.marca}}</p>
+                            </div>
+                        </div>
+                      {% endfor %}
+                  </div>
+                  <div class="modal-footer"><button class="btn btn-primary" type="button" data-bs-dismiss="modal">Close</button></div>
+              </div>
+          </div>
+      </div>
+      <!-- modal de tour -->
+      <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalLg1">Tours</button>
+      <div class="modal fade" id="exampleModalLg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Tours</h5>
+                      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      {% for x in tour %}
+                        <div class="card card-header-actions">
+                            <div class="card-header">
+                                {{x.precio}}
+                                <button class="btn btn-primary btn-sm">seleccionar</button>
+                            </div>
+                            <div class="card-body">
+                              Descripcion:<p>{{x.descripcion}}</p>
+                              Guia:<p>{{x.nombre_completo_guia}}</p>
+                            </div>
+                        </div>
+                      {% endfor %}
+                  </div>
+                  <div class="modal-footer"><button class="btn btn-primary" type="button" data-bs-dismiss="modal">Close</button></div>
+              </div>
+          </div>
+      </div>
+    </div>
     <div class="tab">
       <h2>PAGO</h2>
       <hr>

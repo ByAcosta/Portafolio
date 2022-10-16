@@ -195,14 +195,18 @@ def reservas(request):
     return render( request, 'reservas.html', data)
    
 class Reservas(generic.DetailView):
+    
     def get_context_data(self, **kwargs):
         s
+        x = Tour.objects.all()
+        i = Transporte.objects.all()
         context = super().get_context_data(**kwargs)
         context['user'] = s
+        context['tour'] = x
+        context['trasnporte'] = i
         return context
-        
-    model = Depto  
 
+    model = Depto  
 
 #CRUD DEPTOS
 
