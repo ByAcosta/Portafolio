@@ -21,11 +21,11 @@ header {
     position: sticky;
     width: 100%;   
 }
-.segundo-nav .divv{
+/* .segundo-nav .divv{
     position: s;
     width: 100%;  height: 100vh;
     line-height: 100vh;
-}
+} */
 /* .segundo-nav section:nth-of-type(2n+1){
    background: #fcfbf9; 
 }
@@ -59,11 +59,11 @@ header {
     font-size: 62px;
 }
 
-p {
+.p-home {
     text-align: justify;
     font-size: 18px;
     padding-top: 100px;
-    padding-left: 50px;
+    /* padding-left: 50px; */
 }
 
 @media (max-width: 800px) {

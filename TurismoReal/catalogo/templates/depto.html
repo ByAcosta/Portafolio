@@ -1,0 +1,147 @@
+{% extends 'dashboard.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turimos Real</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    {% block css %}
+    {% endblock %} 
+    <link rel="stylesheet" href="{% static 'app/css/estilos.css' %}">
+    
+</head>
+
+
+{%block content %}
+{% load humanize %}
+
+<div class="row">   
+    <div class="col-12 col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <br><br><br>
+                    <h1>Registrar Departamento</h1>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    
+                    <fieldset>   
+
+                        <label for="">ID</label><br>
+                        <input type="number" name="id_depto" id="id_depto"><br>
+                        <label for="">Nombre</label><br>
+                        <input type="text" name="nombre"><br>
+                        <label for="">Habitaciones</label><br>
+                        <select name="habitaciones" id="habitaciones">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <br>
+                        <label for="">Precio</label><br>
+                        <input type="number" name="precio" id="precio"><br>
+                        <label for="">Descripción</label><br>
+                        <input type="text" name="descripcion">
+                        <br>
+                        <label for="">Disponible</label><br>
+                        <select name="disponible" id="disponible">
+                            <option value="0">No</option>
+                            <option value="1">Si</option>
+                        </select>
+                        <br>
+                        <label for="">Comuna</label><br>
+                        <select name="comuna" id="comuna">
+                            <option value="">Seleccionar</option>
+                            {% for c in comuna %}
+                            <option value="{{ c.0 }}">{{ c.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                        <label for="">Region</label><br>
+                        <select name="region" id="region">
+                            <option value="">Seleccionar</option>
+                            {% for c in region %}
+                            <option value="{{ c.0 }}">{{ c.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                        <label for="">Imagen</label><br>
+                        <input type="file" name="imagen"><br>
+                        <br>
+
+                        <input type="submit" value="Guardar"><br>
+                        {{mensaje}}
+                    </fieldset>    
+                    </form>
+                 
+    
+    <br><br><br>
+        <h1>Lista de Departamentos</h1>
+        <table class="table table-striped table-hover table.responsive-sm">
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>HABITACIONES</th>
+                <th>PRECIO</th>
+                <th>DESCRIPCION</th>
+                <th>DISPONIBLE</th>
+                <th>COMUNA</th>
+                <th>REGION</th>
+                <th>OPCIONES</th>
+            </tr>
+            {% for p in Depto %}
+                <tr>
+                    <!-- ID -->
+                    <td>{{ p.0 }}</td>
+
+                    <!-- NOMRBE -->
+                    <td>{{ p.1 }}</td>
+
+                    <!-- HABITACIONES -->
+                    <td>{{ p.2 }}</td>
+
+                    <!-- PRECIO -->
+                    <td>$ {{ p.3 | intcomma }}</td>
+                    
+                    <!-- DESCRIPCION -->
+                    <td>{{ p.4 }}</td>
+
+                    <!-- DISPONIBLE -->
+                    <td>
+                        {% if p.6 %}
+                        SI
+                        {% else %}
+                        NO
+                        {% endif %}
+                    </td>
+                    
+                    <!-- COMUNA -->
+                    <td>{{ p.7 }}</td>
+
+                    <!-- REGION -->
+                    <td>{{ p.8 }}</td>
+
+                    <!-- OPCIONES -->
+                    <td>
+                        <a href="" class="btn btn-info btn-sm">Modificar</a>
+                        <a href="" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+            </div>
+        </div>        
+    </div>
+</div>  
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+<script src="{% static 'js/menu.js' %}"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

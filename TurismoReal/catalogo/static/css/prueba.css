@@ -1,0 +1,34 @@
+#content {
+    width: 80%;
+    margin:auto;
+    max-width: 1280px;
+    min-height: 100vh;
+  }
+  
+  .deeeptos {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .deptooo {
+    width: 25%;
+    margin-top: 20px;
+  }
+  
+  .deptooo img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .deptooo .detalle {
+    padding: 5px;
+  }
+  
+  .deptooo .contenedor_depto {
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    
+  }
+

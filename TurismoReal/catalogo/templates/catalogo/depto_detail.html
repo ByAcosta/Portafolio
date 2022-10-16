@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+
+{% block content%}
+
+  <form id="regForm" action="" method="post">
+    {% csrf_token %}
+    <!-- PRIMER PASO -->
+    <div class="tab ">
+      <h1>INFORMACIÓN PERSONAL</h1>
+      <br>
+      {% for x in user %}
+      <!-- NOMBRE -->
+        <input class="text-input-form" id="input-nombre" value="{{x.1}}" placeholder="Nombre" name="fname">
+        <label class="label label-form" id="label-nombre" for="input-nombre">Ingrese su nombre</label>
+        <!-- APELLIDO -->
+        <input class="text-input-form" id="input-apellido" value="{{x.2}}" placeholder="Apellido" name="lname">
+        <label class="label label-form" id="label-apellido" for="input-apellido">Ingrese su apellido</label>
+        <!-- EMAIL -->
+        <input class="text-input-form" id="input-email" value="{{x.4}} "placeholder="ejemplo@gmail.com" name="email">
+        <label class="label label-form" id="label-email" for="input-email">Ingrese su email</label>
+        <!-- TELEFONO -->
+        <input class="text-input-form" id="input-telefono" value="{{x.5}}" placeholder="000000000" name="phone">
+        <label class="label label-form" id="label-telefono" for="input-telefono">Ingrese su número de teléfono</label>
+      {% endfor %}
+    </div>
+    <!-- SEGUNDO PASO -->
+    <div class="tab">
+      <h2>DETALLE DEPTO</h2>
+      <br>
+      Titulo:
+      <p><input  oninput="this.className = ''" name="tit" value="{{ depto.nombre }}"></p>
+      Descripcion:
+      <p><input  oninput="this.className = ''" name="des" value="{{ depto.descripcion }}"></p>
+      Precio:
+      <p><input  oninput="this.className = ''" name="pre" value="{{ depto.precio }}"></p>
+      Habitaciones:
+      <p><input  oninput="this.className = ''" name="hab" value="{{ depto.habitaciones }}"></p>
+    </div>
+    <div class="tab">
+      <h2>PAGO</h2>
+      <hr>
+      <p>
+          Listo!! tu reserva esta casi listo al hacer click en pagar se te rediccionara a la plataforma de pagos:)
+      </p>
+    </div>
+    <div style="overflow:auto;">
+      <div style="float:right; margin-top: 50px;">
+        <button class="btn-step" type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+        <button class="btn-step" type="button" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <span class="step"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+    </div>
+  </form>
+
+{% endblock %}

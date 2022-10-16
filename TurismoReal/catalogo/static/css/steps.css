@@ -1,0 +1,184 @@
+/* * {
+  box-sizing: border-box;
+} */
+
+body {
+  background-color: #ffffff;
+}
+
+#regForm {
+  background-color: #f1f1f1;
+  margin: 100px auto;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+#label-nombre {
+  top: 215px;
+  padding-left: 3px;
+  font-size: 18px;
+  transition: all 0.2s;
+  z-index: 1;
+  color: #b3b3b3;
+}
+
+#label-apellido {
+  top: 306px;
+  padding-left: 3px;
+  font-size: 18px;
+  transition: all 0.2s;
+  z-index: 1;
+  color: #b3b3b3;
+}
+
+#label-email {
+  top: 395px;
+  padding-left: 3px;
+  font-size: 18px;
+  transition: all 0.2s;
+  z-index: 1;
+  color: #b3b3b3;
+}
+
+#label-telefono {
+  top: 483px;
+  margin-left: 100px;
+  /* padding-left: 3px; */
+  font-size: 18px;
+  transition: all 0.2s;
+  z-index: 1;
+  color: #b3b3b3;
+}
+
+.label-form{
+  margin-top: 50px;
+  margin-left: 10px;
+}
+
+.text-input-form {
+  padding: 10px;
+  margin-top: 40px;
+  width: 100%;
+  font-size: 17px;
+  border: 2px solid #785a3f;
+  background: #24262b;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s;
+  color: #fff;
+}
+
+.label+.label-form::before {
+  content: "";
+  height: 5px;
+  background: #272530;
+  background-color: #24262ba7;
+  position: absolute;
+  top: 12px;
+  width: 100%;
+  z-index: -1;
+}
+
+.text-input-form:focus {
+  border: 2px solid #f49239;
+}
+
+.text-input-form:focus + #label-nombre,
+.filled {
+    top: 193px;
+    color: #f49239;
+    font-size: 14px;
+}
+
+.text-input-form:focus + #label-apellido,
+.filled {
+    top: 283px;
+    color: #f49239;
+    font-size: 14px;
+}
+
+.text-input-form:focus + #label-email,
+.filled {
+    top: 372px;
+    color: #f49239;
+    font-size: 14px;
+}
+
+.text-input-form:focus + #label-telefono,
+.filled {
+    top: 473px;
+    color: #f49239;
+    font-size: 14px;
+}
+
+.text-input-form::placeholder {
+  font-size: 16px;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.text-input-form:focus::placeholder {
+  opacity: 1;
+}
+
+input.invalid {
+  background-color: #ffdddd;
+}
+
+.tab {
+  display: none;
+}
+
+.btn-step {
+  border: 2px solid #785a3f;
+  background: #24262b;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #b3b3b3;
+  transition: all 0.3s;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-step:hover {
+  color: #24262b;
+  background-color: #f49239;
+}
+
+.btn-step:active {
+  color: #fff;
+  background-color: #24262b;
+}
+
+/* button:hover {
+  opacity: 0.8;
+} */
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #24262b;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step.finish {
+  background-color: #f49239;
+  opacity: 10;
+}
