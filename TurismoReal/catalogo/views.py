@@ -6,7 +6,8 @@ from catalogo.models import *
 from django.http import HttpResponse
 from django.conf import settings
 from django.db import connection
-from .forms import DeptoForm
+from .forms import *
+from .models import Depto as Depto2
 import cx_Oracle
 
 def login(request):
@@ -112,7 +113,19 @@ def dashboard(request):
     return render(request, 'dashboard.html', data)
 
 def mantenedor_C(request):
-    return render(request, 'mantenedor_cliente.html')
+
+    data = {
+        'form': UsuarioForm()
+    }           
+
+    if request.method == 'POST':
+        formulario = UsuarioForm(data=request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+        else:
+            data["mensaje"] = formulario
+
+    return render(request, 'catalogo/mantenedor_cliente.html',data)
     
 def lista_comuna():
     django_cursor = connection.cursor()
@@ -171,26 +184,6 @@ def logins(email , contraseña):
     cursor.callproc('SP_LOGIN',[out_cur,email,contraseña,salida])
     return salida.getvalue()
 
-def agregar_depto(id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen):
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc("SP_AGREGAR_DEPTO", [id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen, salida])
-    return salida.getvalue()
-
-# def eliminar_depto(id_depto):
-#     django_cursor = connection.cursor()
-#     cursor = django_cursor.connection.cursor()
-#     cursor.callproc("SP_ELIMINAR_DEPTO", [id_depto])
-#     return render( request, 'catalogo/depto.html', data)
-
-def modificar_depto(id_depto, nombre, habitaciones,precio, descripcion, disponible, comuna_id, region_id, imagen):
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc("SP_MODIFICAR_DEPTO", [id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen, salida])
-    return salida.getvalue()
-
 def reservas(request):
     data = {
         'Depto':lista_deptos(),
@@ -201,11 +194,220 @@ def reservas(request):
     data['Depto'] = lista_deptos()
     return render( request, 'reservas.html', data)
    
-class Deptoxd(generic.DetailView):
+class Reservas(generic.DetailView):
     def get_context_data(self, **kwargs):
         s
         context = super().get_context_data(**kwargs)
         context['user'] = s
         return context
         
-    model = Depto    
+    model = Depto  
+
+
+#CRUD DEPTOS
+
+def agregar_depto(request):
+
+    data = {
+        'form':  DeptoForm(),
+        'user' : s
+    }  
+    if request.method == 'POST':
+        formulario = DeptoForm(data=request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            # messages.success(request, "Guardado Correctamente")
+            return redirect(to="listar_depto")
+        else:
+            data["form"] = formulario   
+
+    return render(request, 'deptos/agregar.html', data)       
+
+def listar_depto(request):
+        departamentos = Depto2.objects.all()
+
+        data= {
+            'departamentos': departamentos,
+            'user' : s
+        }
+        return render(request, 'deptos/listar.html', data)
+
+def modificar_depto(request, id_depto):
+
+    producto = get_object_or_404(Depto2, id_depto=id_depto)
+
+    data = {
+        'form': DeptoForm(instance=producto),
+        'user' : s
+    } 
+        
+    if request.method == 'POST':
+        formulario = DeptoForm(data=request.POST, instance=producto, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            # messages.success(request, "Modificado Correctamente")
+            return redirect(to="listar_depto")
+            data['form'] = formulario
+    
+    return render(request, 'deptos/modificar.html', data)     
+
+def eliminar_depto(request, id_depto):
+
+    producto= get_object_or_404(Depto2, id_depto=id_depto)
+    producto.delete()
+    # messages.success(request, "Eliminado Correctamente")
+    return redirect("listar_depto")
+
+def prueba(request):
+    data= {
+    'user' : s
+    }    
+    return render(request, 'deptos/prueba.html',data) 
+
+# --- CRUD ESTEBAN ---
+
+def servicio_extra(request):
+    data= {
+    'user' : s
+    } 
+    return render(request, 'servicio_extra.html', data)
+
+def tour(request):
+    data = {
+        'form': TourForm(),
+        'user' : s
+    }
+
+    if request.method == 'POST':
+        formulario = TourForm (data=request.POST)
+
+        if formulario.is_valid():
+            formulario.save()
+            data["mensaje"] = "Guardado correctamente"
+        else:
+            data["form"] = formulario
+
+    return render(request, 'servicio_extra/tour.html', data)
+
+def listar_tour(request):
+    tour = Tour.objects.all()
+    data = {
+        'tour': tour,
+        'user' : s
+    }
+    return render(request, 'servicio_extra/listar_tour.html', data)
+
+def modificar_tour(request, id_tour):
+
+    tour = get_object_or_404(Tour, id_tour=id_tour)
+
+    data = {
+        'form': TourForm(instance=tour),
+        'user' : s
+    }
+
+    if request.method == 'POST':
+        formulario = TourForm (data=request.POST, instance=tour)
+
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to='listar_tour')
+        else:
+            data["form"] = formulario
+
+    return render(request, 'servicio_extra/modificar_tour.html', data)
+
+def eliminar_tour(request, id_tour):
+    tour = get_object_or_404(Tour, id_tour=id_tour)
+    tour.delete()
+    return redirect(to='listar_tour')
+
+def transporte(request):
+    data = {
+        'form': TransporteForm(),
+        'user' : s
+    }
+
+    if request.method == 'POST':
+        formulario = TransporteForm (data=request.POST)
+
+        if formulario.is_valid():
+            formulario.save()
+            data["mensaje"] = "Guardado correctamente"
+        else:
+            data["form"] = formulario
+
+    return render(request, 'servicio_extra/transporte.html', data)
+
+def listar_transporte(request):
+    transporte = Transporte.objects.all()
+    data = {
+        'transporte': transporte,
+        'user' : s
+    }
+    return render(request, 'servicio_extra/listar_transporte.html', data)
+
+def modificar_transporte(request, id_t):
+
+    transporte = get_object_or_404(Transporte, id_t=id_t)
+
+    data = {
+        'form': TransporteForm(instance=transporte),
+        'user' : s
+    }
+
+    if request.method == 'POST':
+        formulario = TransporteForm (data=request.POST, instance=transporte)
+
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to='listar_transporte')
+        else:
+            data["form"] = formulario
+
+    return render(request, 'servicio_extra/modificar_transporte.html', data)
+
+def eliminar_transporte(request, id_t):
+    transporte = get_object_or_404(Transporte, id_t=id_t)
+    transporte.delete()
+    return redirect(to='listar_transporte')
+    
+#CRUD CLEINTES 
+
+def listar_cliente(request):
+
+    clientes = Usuario.objects.all()
+
+    data = {
+        'clientes': clientes,
+        'user' : s
+    }
+
+    return render(request, 'listar_cliente.html', data)
+
+
+def modificar_cliente (request, rut):
+    
+    cliente = get_object_or_404(Usuario, rut=rut)
+
+    data = {
+        'form': UsuarioForm(instance=cliente),
+        'user' : s
+    }
+
+    if request.method == 'POST':
+        formulario = UsuarioForm(data=request.POST, instance=cliente, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to="listar_cliente")
+        data['form'] = formulario
+
+
+    return render(request, 'modificar_cliente.html', data)
+
+
+def eliminar_cliente(request, rut):
+    cliente = get_object_or_404(Usuario, rut=rut)
+    cliente.delete()
+    return redirect(to="listar_cliente")
+
