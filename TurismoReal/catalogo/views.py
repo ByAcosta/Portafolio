@@ -1,3 +1,4 @@
+from cgi import print_directory
 from sqlite3 import Cursor
 from typing_extensions import runtime
 from django.shortcuts import render ,redirect, get_object_or_404
@@ -429,8 +430,42 @@ def comprar(request):
         precio_depto = request.POST.get('precioD')
         resta = int(precio_depto) * 0.4
         total = int(precio_depto) - resta
-
         query = "insert into catalogo_reserva(total,check_in,check_out, rut_id ,depto_id) values({},'{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto)
-        cursor.execute(query)
-
+        cursor.execute(query)   
     return redirect('home')
+
+def lista_reserva_cliente():
+    s
+    rut = ''
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    #parametros 
+    for x in s:
+        rut = x[0]  
+    # sentencia = "select * from catalogo_reserva where rut_id = '{}')".format(rut)
+    sentencia = "select r.id,r.total,r.check_in,r.check_out,r.rut_id,d.nombre from catalogo_reserva  r join catalogo_depto d on (r.depto_id = d.id_depto ) where rut_id ='{}'".format(rut)
+    cursor.execute(sentencia)
+    r = tuple(cursor.fetchall()) 
+
+    return r
+
+def lista_reserva():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+    
+    cursor.callproc("SP_LISTAR_RESERVAS",[out_cur])
+
+    lista = []
+
+    for fila in out_cur:
+        lista.append(fila)
+
+    return lista   
+
+def reservas_cliente(request):
+    data = {
+        'reserva': lista_reserva(),
+        'reservas': lista_reserva_cliente()
+    }
+    return render( request, 'reservas.html', data) 

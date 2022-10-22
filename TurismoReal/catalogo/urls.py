@@ -10,7 +10,7 @@ urlpatterns= [
     path('register/', register, name="register"),
     path('dashboard/', dashboard, name="dashboard"),
     path('dashboard/clientes', mantenedor_C, name="clientes"),
-    path('dashboard/reservas', reservas, name="reserva"),
+    path('dashboard/reservas', reservas_cliente, name="reserva"),
     path('Depto/<int:pk>', Reservas.as_view() ,name='depto-detail'), 
     # CRUD TOMAS
     path('agregar/', agregar_depto, name="agregar_depto"),
