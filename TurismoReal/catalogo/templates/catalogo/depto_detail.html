@@ -1,15 +1,18 @@
 {% extends 'index.html' %}
 
 {% block content%}
-
-  <form id="regForm" action="" method="post">
+<div class="container">
+  <form  action="{% url 'pago' %}" method="post">
     {% csrf_token %}
     <!-- PRIMER PASO -->
     <div class="tab ">
       <h1>INFORMACIÓN PERSONAL</h1>
       <br>
-      {% for x in user %}
-      <!-- NOMBRE -->
+      {% for x in usuario %}
+        <!-- RUT -->
+        <input class="text-input-form" id="input-rut" value="{{x.0}}" placeholder="Rut" name="Rut">
+        <label class="label label-form" id="label-rut" for="input-nombre">RUT</label>
+        <!-- NOMBRE -->
         <input class="text-input-form" id="input-nombre" value="{{x.1}}" placeholder="Nombre" name="fname">
         <label class="label label-form" id="label-nombre" for="input-nombre">Ingrese su nombre</label>
         <!-- APELLIDO -->
@@ -27,76 +30,25 @@
     <div class="tab">
       <h2>DETALLE DEPTO</h2>
       <br>
+      id:
+      <p><input  oninput="this.className = ''" name="id_depto" value="{{ depto.id_depto }}" style="display: none ;"></p>
       Titulo:
-      <p><input  oninput="this.className = ''" name="tit" value="{{ depto.nombre }}"></p>
+      <p><input  oninput="this.className = ''" name="tit_depto" value="{{ depto.nombre }}"></p>
       Descripcion:
-      <p><input  oninput="this.className = ''" name="des" value="{{ depto.descripcion }}"></p>
+      <p><input  oninput="this.className = ''" name="des_depto" value="{{ depto.descripcion }}"></p>
       Precio:
-      <p><input  oninput="this.className = ''" name="pre" value="{{ depto.precio }}"></p>
+      <p><input  oninput="this.className = ''" name="precioD" value="{{ depto.precio }}" type="number"></p>
       Habitaciones:
-      <p><input  oninput="this.className = ''" name="hab" value="{{ depto.habitaciones }}"></p>
+      <p><input  oninput="this.className = ''" name="habitaciones" value="{{ depto.habitaciones }}"></p>
     </div>
-    <!-- TERCER PASO -->
-    <div class="tab">
-      <h2>SERVICIO EXTRA</h2>
+    <!-- TERCER PASO RANCIO -->
+    <div class="tab"></div>
+      <h2>Dias que se quea</h2>
       <br>
-      <!-- modal de transporte -->
-      <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalLg">Transporte</button>
-      <div class="modal fade" id="exampleModalLg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title">Lista de transportes</h5>
-                      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      {% for x in trasnporte %}
-                        <div class="card card-header-actions">
-                            <div class="card-header">
-                                {{x.precio}}
-                                <button class="btn btn-primary btn-sm">seleccionar</button>
-                            </div>
-                            <div class="card-body">
-                              Descripcion:<p>{{x.descripcion}}</p>
-                              Conductor:<p>{{x.conductor}}</p>
-                              Patente:<p>{{x.patente}}</p>
-                              Modelo:<p>{{x.modelo}}</p>
-                              Marca:<p>{{x.marca}}</p>
-                            </div>
-                        </div>
-                      {% endfor %}
-                  </div>
-                  <div class="modal-footer"><button class="btn btn-primary" type="button" data-bs-dismiss="modal">Close</button></div>
-              </div>
-          </div>
-      </div>
-      <!-- modal de tour -->
-      <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalLg1">Tours</button>
-      <div class="modal fade" id="exampleModalLg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title">Tours</h5>
-                      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      {% for x in tour %}
-                        <div class="card card-header-actions">
-                            <div class="card-header">
-                                {{x.precio}}
-                                <button class="btn btn-primary btn-sm">seleccionar</button>
-                            </div>
-                            <div class="card-body">
-                              Descripcion:<p>{{x.descripcion}}</p>
-                              Guia:<p>{{x.nombre_completo_guia}}</p>
-                            </div>
-                        </div>
-                      {% endfor %}
-                  </div>
-                  <div class="modal-footer"><button class="btn btn-primary" type="button" data-bs-dismiss="modal">Close</button></div>
-              </div>
-          </div>
-      </div>
+      dia de llegada:
+      <p><input  oninput="this.className = ''" name="check_in" value="" type="date"></p>
+      dia de salida:
+      <p><input  oninput="this.className = ''" name="check_out" value="" type="date"></p>
     </div>
     <div class="tab">
       <h2>PAGO</h2>
@@ -104,11 +56,13 @@
       <p>
           Listo!! tu reserva esta casi listo al hacer click en pagar se te rediccionara a la plataforma de pagos:)
       </p>
+      
     </div>
     <div style="overflow:auto;">
       <div style="float:right; margin-top: 50px;">
         <button class="btn-step" type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
         <button class="btn-step" type="button" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
+        <input class="btn btn-md " id="payBtn" type="submit" style="background-color: #f49237;" value="pagar">
       </div>
     </div>
     <div style="text-align:center;margin-top:40px;">
@@ -117,5 +71,5 @@
       <span class="step"></span>
     </div>
   </form>
-
+</div>
 {% endblock %}

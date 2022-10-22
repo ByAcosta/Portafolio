@@ -40,7 +40,7 @@ def home(request):
 
 def index(request):
     data = {
-        'user':s,
+        'usuario':s,
         'Depto':lista_deptos(),
         'region':lista_region(),
         'comuna':lista_comuna(),
@@ -195,17 +195,18 @@ def reservas(request):
     return render( request, 'reservas.html', data)
    
 class Reservas(generic.DetailView):
-    
+    model = Depto
+
     def get_context_data(self, **kwargs):
         s
         x = Tour.objects.all()
         i = Transporte.objects.all()
         context = super().get_context_data(**kwargs)
-        context['user'] = s
+        context['usuario'] = s
         context['tour'] = x
         context['trasnporte'] = i
         return context
-
+    
     model = Depto  
 
 #CRUD DEPTOS
@@ -415,3 +416,21 @@ def eliminar_cliente(request, rut):
     cliente.delete()
     return redirect(to="listar_cliente")
 
+#reserva
+def comprar(request):
+    if request.method =='POST':
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        #parametros 
+        rut = request.POST.get('Rut')
+        id_depto = request.POST.get('id_depto')
+        check_in = request.POST.get('check_in')
+        check_out = request.POST.get('check_out')
+        precio_depto = request.POST.get('precioD')
+        resta = int(precio_depto) * 0.4
+        total = int(precio_depto) - resta
+
+        query = "insert into catalogo_reserva(total,check_in,check_out, rut_id ,depto_id) values({},'{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto)
+        cursor.execute(query)
+
+    return redirect('home')

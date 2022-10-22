@@ -56,8 +56,6 @@ class Reserva(models.Model):
     check_out = models.DateField(default=datetime.date.today)
     rut = models.ForeignKey('Usuario', on_delete=models.PROTECT, null=True)
     depto = models.ForeignKey('Depto', on_delete=models.PROTECT, null=True)
-    transporte = models.ForeignKey('Transporte', on_delete=models.PROTECT, null=True)
-    tour = models.ForeignKey('Tour', on_delete=models.PROTECT, null=True)
 
 class Transporte(models.Model):
     id_t = models.IntegerField(primary_key=True)

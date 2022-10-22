@@ -22,7 +22,7 @@
                 <option value="">Inglés</option>
             </select>
             <a href="{% url 'login' %}"><button class="btn-style" id="btn-login">logout</button></a>
-            {% for x in user %}
+            {% for x in usuario %}
                 {% if x.10 == 1 or x.10 == 2 %}
                     <a href="{% url 'dashboard' %}" ><button class="btn-style" id="btn-dashboard">Dashboard</button></a>
                 {% endif %}    
