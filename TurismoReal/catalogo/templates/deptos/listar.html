@@ -31,6 +31,12 @@
                 <th>COMUNA</th>
                 <th>REGION</th>
                 <th>OPCIONES</th>
+                <th>
+                    <a href="{% url 'listar_inventario' %}" class="btn btn-success btn-sm">Inventario</a> 
+                </th>
+                <th>
+                    <a href="{% url 'agregar_depto' %}" class="btn btn-success btn-sm">Añadir</a> 
+                </th>
             </tr>
             {% for p in departamentos %}
                 <tr>
@@ -56,10 +62,15 @@
                     </td>
                     
                     <!-- COMUNA -->
-                    <td>{{ p.comuna }}</td>
+
+                    {% for c in comunas %}
+                    <td>{{ c.nombre }}</td>
+                    {% endfor %}
 
                     <!-- REGION -->
-                    <td>{{ p.region }}</td>
+                    {% for r in regiones %}
+                    <td>{{ r.nombre }}</td>
+                    {% endfor %}
 
                     <!-- OPCIONES -->
                     <td>
@@ -68,34 +79,6 @@
                     </td>
                 </tr>
             {% endfor %}
-    
-            <h2>Departamentos</h2>
-            <div class="deeeptos">
-
-                <div class="deptooo">
-                    {% for p in departamentos %}
-                    <div class="contenedor_depto">
-                        {% if p.imagen %}   
-                            <img src="{{ p.imagen.url }}" alt="imagen depto">
-                        {% endif %}
-                            
-                            <div class="detalle">
-                                
-                                <h5>{{p.ubicacion | capfirst }}</h5>
-                                <h2>{{p.nombre | title }}</h2>
-                                <h3>${{p.precio | intcomma }}</h3>
-                                
-                            </div>
-
-                    </div>
-
-                </div>
-
-                {% endfor %}
-
-            </div>
-
-
         </table>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {% if messages %}

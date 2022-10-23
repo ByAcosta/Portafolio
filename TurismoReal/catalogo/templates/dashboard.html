@@ -101,7 +101,7 @@
                         <h6 class="dropdown-header d-flex align-items-center">
                             <img class="dropdown-user-img" src="assets/img/illustrations/profiles/profile-1.png" />
                             <div class="dropdown-user-details">
-                            {% for x in user %}    
+                            {% for x in usuario %}    
                                 <div class="dropdown-user-details-name">{{x.1}} <span> {{x.2}}</span></div> 
                                 <div class="dropdown-user-details-email">{{x.4}}</div>
                             {% endfor %}    
@@ -159,7 +159,7 @@
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                 Servicios extras
                             </a>
-                            {% for x in user%}
+                            {% for x in usuario%}
                                 {%if x.10 == 1%}
                                     <div class="sidenav-menu-heading">Estadisticas</div>
                                     
@@ -167,7 +167,7 @@
                                         <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                         Graficos
                                     </a>
-                                    <a class="nav-link" href="{% url 'reserva' %}">
+                                    <a class="nav-link" href="#">
                                         <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                         Reservas
                                     </a>
@@ -183,7 +183,7 @@
                     <div class="sidenav-footer">
                         <div class="sidenav-footer-content">
                             <div class="sidenav-footer-subtitle">Sesión inciada por:</div>
-                            {% for x in user %}
+                            {% for x in usuario %}
                                 <div class="sidenav-footer-title">{{x.1}}</div>
                             {% endfor %}
                         </div>

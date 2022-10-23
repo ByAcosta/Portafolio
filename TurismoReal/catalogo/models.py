@@ -26,17 +26,12 @@ class Depto(models.Model):
     precio = models.IntegerField(default=0)
     descripcion = models.TextField(max_length=900)
     disponible = models.BooleanField()
-    imagen = models.ImageField(upload_to="images/", null=True)   
+    imagen = models.ImageField(upload_to="catalogo/static/img/", null=True)   
     region = models.ForeignKey('Region', on_delete=models.PROTECT, null=True)
     comuna = models.ForeignKey('Comuna', on_delete=models.PROTECT, null=True)
 
     def get_absolute_url(self):
         return reverse('depto-detail', args=[int(self.id_depto)])
-
-class ImagenDepto(models.Model):
-    imagen = models.ImageField(upload_to="images/")    
-    depto = models.ForeignKey(Depto, on_delete=models.CASCADE)
-
      
 class Region(models.Model):
     id_reg = models.IntegerField(primary_key=True)
@@ -56,8 +51,8 @@ class Reserva(models.Model):
     check_in = models.DateField(default=datetime.date.today)
     check_out = models.DateField(default=datetime.date.today)
     estado = models.CharField(max_length=50, null=True)
-    rut = models.ForeignKey('Usuario', on_delete=models.PROTECT, null=True)
-    depto = models.ForeignKey('Depto', on_delete=models.PROTECT, null=True)
+    rut = models.ForeignKey('Usuario', on_delete=models.CASCADE, null=True)
+    depto = models.ForeignKey('Depto', on_delete=models.CASCADE, null=True)
 
 class Transporte(models.Model):
     id_t = models.IntegerField(primary_key=True)
@@ -73,3 +68,11 @@ class Tour(models.Model):
     descripcion = models.TextField(max_length=1000)
     precio = models.IntegerField(default=0 , null = True)
     nombre_completo_guia = models.TextField(max_length=50 , null = True)
+
+class Inventario(models.Model):
+    id_i = models.IntegerField(primary_key=True)
+    jabon = models.IntegerField(default=0 , null = True)
+    toalla = models.IntegerField(default=0 , null = True)
+    colchon = models.IntegerField(default=0 , null = True)
+    sabanas = models.IntegerField(default=0 , null = True)
+    id_depto = models.ForeignKey('Depto', on_delete=models.PROTECT, null=True)

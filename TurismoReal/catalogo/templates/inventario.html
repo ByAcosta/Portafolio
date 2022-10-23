@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'dashboard.html' %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,28 +18,45 @@
 {%block content %}
 {% load humanize %}
 {% load crispy_forms_tags %}
+
+<br>
+
 <div class="row">   
     <div class="col-12 col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
-                <br><br><br>
-                <h1>cancelar reserva</h1>
+                <h1>Inventario</h1>
+
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form | crispy }}
-                    <fieldset>   
+
                     <br>
-                    <div class="d-flex justify-content-end">
-                        <a class="btn btn-md btn-primary" href="{%url 'reservas' %}" style="margin:5px ;">volver</a>
-                        <input class="btn btn-md btn-danger" type="submit" value="Cancelar" style="margin:5px ;">
-                        </div>
-                    </div>         
-                    {{mensaje}}
-                </fieldset>    
-                </form>    
+                    
+                    <div class="d-flex justify-content-left">
+                        <input type="submit" value="Guardar" class="btn btn-primary">
+                        &nbsp;
+                        <button type="reset" class="btn btn-danger">Cancelar</button>
+                    </div>
+
+                    <br>
+
+                    {{mensaje}}  
+                </form>
+                
+                <br>
+
+                <a class="nav-link" href="{% url 'listar_inventario' %}">
+                    <button type="button" class="btn btn-danger">Atras</button>
+                </a>
             </div>
-        </div>
+        </div>        
     </div>
-</div>            
-                 
+</div>  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+<script src="{% static 'js/menu.js' %}"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

@@ -38,3 +38,9 @@ class ReservaForm(forms.ModelForm):
     class Meta:
         model = Reserva
         fields = ['estado']
+
+class InventarioForm(forms.ModelForm):
+
+    class Meta:
+        model = Inventario
+        fields = '__all__'

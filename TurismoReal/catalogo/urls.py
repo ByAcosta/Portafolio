@@ -32,4 +32,9 @@ urlpatterns= [
     path('listar_cliente/', listar_cliente, name="listar_cliente"),
     path('modificar_cliente/<rut>/', modificar_cliente, name="modificar_cliente"),
     path('eliminar_cliente/<rut>/', eliminar_cliente, name="eliminar_cliente"),
+    #INVENTARIO
+    path('dashboard/listar_inventario', listar_inventario, name="listar_inventario"),
+    path('dashboard/inventario', inventario, name="inventario"),
+    path('modificar_inventario/<id_i>/', modificar_inventario, name="modificar_inventario"),
+    path('eliminar_inventario/<id_i>/', eliminar_inventario, name="eliminar_inventario"),
     ]

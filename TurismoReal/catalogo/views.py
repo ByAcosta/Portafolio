@@ -32,7 +32,7 @@ def login(request):
     
 def home(request):
     data = {
-        'user':s,
+        'usuario':s,
         'Depto':lista_deptos(),
         'region':lista_region(),
         'comuna':lista_comuna(),
@@ -90,7 +90,7 @@ def register(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         contraseña = request.POST.get('pass')
-        direccion = request.POST.get('direccion')
+        direccion = request.POST.get('Direccion')
         celular = request.POST.get('celular')
         comuna_id = request.POST.get('comuna')
         region_id = request.POST.get('region')
@@ -106,7 +106,7 @@ def register(request):
 
 def dashboard(request):
     data = {
-        'user':s,
+        'usuario':s,
         'Depto':lista_deptos(),
         'region':lista_region(),
         'comuna':lista_comuna(),
@@ -216,7 +216,7 @@ def agregar_depto(request):
 
     data = {
         'form':  DeptoForm(),
-        'user' : s
+        'usuario' : s
     }  
     if request.method == 'POST':
         formulario = DeptoForm(data=request.POST, files=request.FILES)
@@ -231,10 +231,14 @@ def agregar_depto(request):
 
 def listar_depto(request):
         departamentos = Depto2.objects.all()
+        comunas = Comuna.objects.all()
+        regiones = Region.objects.all()
 
         data= {
             'departamentos': departamentos,
-            'user' : s
+            'regiones':regiones,
+            'comunas':comunas,
+            'usuario' : s
         }
         return render(request, 'deptos/listar.html', data)
 
@@ -244,7 +248,7 @@ def modificar_depto(request, id_depto):
 
     data = {
         'form': DeptoForm(instance=producto),
-        'user' : s
+        'usuario' : s
     } 
         
     if request.method == 'POST':
@@ -266,7 +270,7 @@ def eliminar_depto(request, id_depto):
 
 def prueba(request):
     data= {
-    'user' : s
+    'usuario' : s
     }    
     return render(request, 'deptos/prueba.html',data) 
 
@@ -274,14 +278,14 @@ def prueba(request):
 
 def servicio_extra(request):
     data= {
-    'user' : s
+    'usuario' : s
     } 
     return render(request, 'servicio_extra.html', data)
 
 def tour(request):
     data = {
         'form': TourForm(),
-        'user' : s
+        'usuario' : s
     }
 
     if request.method == 'POST':
@@ -299,7 +303,7 @@ def listar_tour(request):
     tour = Tour.objects.all()
     data = {
         'tour': tour,
-        'user' : s
+        'usuario' : s
     }
     return render(request, 'servicio_extra/listar_tour.html', data)
 
@@ -309,7 +313,7 @@ def modificar_tour(request, id_tour):
 
     data = {
         'form': TourForm(instance=tour),
-        'user' : s
+        'usuario' : s
     }
 
     if request.method == 'POST':
@@ -331,7 +335,7 @@ def eliminar_tour(request, id_tour):
 def transporte(request):
     data = {
         'form': TransporteForm(),
-        'user' : s
+        'usuario' : s
     }
 
     if request.method == 'POST':
@@ -349,7 +353,7 @@ def listar_transporte(request):
     transporte = Transporte.objects.all()
     data = {
         'transporte': transporte,
-        'user' : s
+        'usuario' : s
     }
     return render(request, 'servicio_extra/listar_transporte.html', data)
 
@@ -359,7 +363,7 @@ def modificar_transporte(request, id_t):
 
     data = {
         'form': TransporteForm(instance=transporte),
-        'user' : s
+        'usuario' : s
     }
 
     if request.method == 'POST':
@@ -386,7 +390,7 @@ def listar_cliente(request):
 
     data = {
         'clientes': clientes,
-        'user' : s
+        'usuario' : s
     }
 
     return render(request, 'listar_cliente.html', data)
@@ -398,7 +402,7 @@ def modificar_cliente (request, rut):
 
     data = {
         'form': UsuarioForm(instance=cliente),
-        'user' : s
+        'usuario' : s
     }
 
     if request.method == 'POST':
@@ -489,3 +493,55 @@ def Cancelar_reserva(request, id):
         data['form'] = formulario
 
     return render(request, 'cancelar_reserva.html', data)
+
+#INVENTARIO
+
+def listar_inventario(request):
+    inventario = Inventario.objects.all()
+    data = {
+        'inventario': inventario,
+        'usuario' : s
+    }
+    return render(request, 'listar_inventario.html', data)
+
+def inventario(request):
+    data = {
+        'form': InventarioForm(),
+        'usuario' : s
+    }
+
+    if request.method == 'POST':
+        formulario = InventarioForm (data=request.POST)
+
+        if formulario.is_valid():
+            formulario.save()
+            data["mensaje"] = "Guardado correctamente"
+        else:
+            data["form"] = formulario
+
+    return render(request, 'inventario.html', data)
+
+def modificar_inventario (request, id_i):
+    
+    inventario = get_object_or_404(Inventario, id_i=id_i)
+
+    data = {
+        'form': InventarioForm(instance=inventario),
+        'usuario' : s
+    }
+
+    if request.method == 'POST':
+        formulario = InventarioForm(data=request.POST, instance=inventario, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to="listar_inventario")
+        data['form'] = formulario
+
+
+    return render(request, 'modificar_inventario.html', data)
+
+def eliminar_inventario(request, id_i):
+    inventario = get_object_or_404(Inventario, id_i=id_i)
+    inventario.delete()
+    return redirect(to="listar_inventario")
+
