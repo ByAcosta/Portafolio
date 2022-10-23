@@ -1,4 +1,5 @@
 import datetime
+from email.policy import default
 from pyexpat import model
 from django.db import models
 from django.urls import reverse
@@ -54,6 +55,7 @@ class Reserva(models.Model):
     total = models.IntegerField(default=0)
     check_in = models.DateField(default=datetime.date.today)
     check_out = models.DateField(default=datetime.date.today)
+    estado = models.CharField(max_length=50, null=True)
     rut = models.ForeignKey('Usuario', on_delete=models.PROTECT, null=True)
     depto = models.ForeignKey('Depto', on_delete=models.PROTECT, null=True)
 

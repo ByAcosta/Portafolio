@@ -427,12 +427,13 @@ def comprar(request):
         id_depto = request.POST.get('id_depto')
         check_in = request.POST.get('check_in')
         check_out = request.POST.get('check_out')
+        estado = 'Reservado'
         precio_depto = request.POST.get('precioD')
         resta = int(precio_depto) * 0.4
         total = int(precio_depto) - resta
-        query = "insert into catalogo_reserva(total,check_in,check_out, rut_id ,depto_id) values({},'{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto)
+        query = "insert into catalogo_reserva(total,check_in,check_out,rut_id,depto_id,estado) values({},'{}','{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto,estado)
         cursor.execute(query)   
-    return redirect('home')
+    return redirect('reservas')
 
 def lista_reserva_cliente():
     s
@@ -443,7 +444,7 @@ def lista_reserva_cliente():
     for x in s:
         rut = x[0]  
     # sentencia = "select * from catalogo_reserva where rut_id = '{}')".format(rut)
-    sentencia = "select r.id,r.total,r.check_in,r.check_out,r.rut_id,d.nombre from catalogo_reserva  r join catalogo_depto d on (r.depto_id = d.id_depto ) where rut_id ='{}'".format(rut)
+    sentencia = "select r.id,r.total,r.check_in,r.check_out,r.rut_id,d.nombre,r.estado from catalogo_reserva  r join catalogo_depto d on (r.depto_id = d.id_depto ) where rut_id ='{}'".format(rut)
     cursor.execute(sentencia)
     r = tuple(cursor.fetchall()) 
 
@@ -468,4 +469,23 @@ def reservas_cliente(request):
         'reserva': lista_reserva(),
         'reservas': lista_reserva_cliente()
     }
-    return render( request, 'reservas.html', data) 
+    return render( request, 'reservas.html', data)
+
+def Cancelar_reserva(request, id):
+    
+    Reservas = get_object_or_404(Reserva , id = id)
+
+    data = {
+        'form': ReservaForm(instance=Reservas),
+        'reserva': lista_reserva(),
+        'reservas': lista_reserva_cliente()
+        }
+
+    if request.method == 'POST':
+        formulario = ReservaForm(data=request.POST, instance=Reservas, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to="reservas")
+        data['form'] = formulario
+
+    return render(request, 'cancelar_reserva.html', data)
