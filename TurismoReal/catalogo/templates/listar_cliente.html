@@ -1,5 +1,7 @@
 {% extends 'dashboard.html' %}
 
+
+
 {% block content %}
 {% load static %}
 <br>
@@ -17,7 +19,10 @@
                 <th>Celular</th>
                 <th>Comuna</th>
                 <th>Region</th>
-                <th>Dirección</th>
+                <th>DirecciÃ³n</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
+
                 
                 
 
@@ -34,17 +39,35 @@
                 <td>{{ c.comuna | title}}</td>
                 <td>{{ c.region | title}}</td>
                 <td>{{ c.direccion | title}}</td>
+                
                 <td>
-                    <a href="{% url 'modificar_cliente' c.rut %}" class="btn btn-info btn-sm">Modificar</a>
-                    <a href="{% url 'eliminar_cliente' c.rut %}" class="btn btn-danger btn-sm">Eliminar</a>                   
+                    <a href="{% url 'modificar_cliente' c.rut %}" class="btn btn-info btn-sm">Modificar</a>                      
                 </td>
+
+                <td>
+                    <a href="{% url 'eliminar_cliente' c.rut %}" class="btn btn-danger btn-sm">Eliminar</a> 
+                </td>
+                
             </tr>
-            {% endfor %}
-           
-        
+
+            {% endfor %}       
         </table>
+
+        
+        <div>
+            <a class="nav-link" href="{% url 'clientes' %}" style="float: right">
+                <button type="button" class="btn btn-primary btn-sm">Agregar</button>
+            </a>
+                            
+            <a class="nav-link" href="{% url 'dashboard' %}" style="float: right">
+                <button type="button" class="btn btn-outline-primary btn-sm">Atras</button>
+            </a>
+        </div>
+   
+
     </div>
 </div>
+
 
 
 {% endblock %}

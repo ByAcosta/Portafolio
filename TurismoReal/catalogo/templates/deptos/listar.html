@@ -21,6 +21,16 @@
 <div class="card">
     <div class="card-body">
         <h1>Lista de Departamentos</h1>
+        <div class="card card-header-actions mx-auto">
+            <div class="card-header">
+                <div>
+
+                    <a class="btn btn-warning btn-sm" href="{% url 'listar_inventario' %}" role="button">Inventario</a>
+                    <a class="btn btn-success btn-sm" href="{% url 'agregar_depto' %}" role="button">Añadir Departamento</a>
+
+                </div>
+            </div>
+        </div>
         <table class="table table-striped table-hover table.responsive-sm">
             <tr>
                 <th>ID</th>
@@ -31,12 +41,6 @@
                 <th>COMUNA</th>
                 <th>REGION</th>
                 <th>OPCIONES</th>
-                <th>
-                    <a href="{% url 'listar_inventario' %}" class="btn btn-success btn-sm">Inventario</a> 
-                </th>
-                <th>
-                    <a href="{% url 'agregar_depto' %}" class="btn btn-success btn-sm">Añadir</a> 
-                </th>
             </tr>
             {% for p in departamentos %}
                 <tr>

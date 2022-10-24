@@ -127,7 +127,7 @@ def mantenedor_C(request):
         else:
             data["mensaje"] = formulario
 
-    return render(request, 'catalogo/mantenedor_cliente.html',data)
+    return render(request, 'mantenedor_cliente.html',data)
     
 def lista_comuna():
     django_cursor = connection.cursor()
@@ -448,8 +448,7 @@ def lista_reserva_cliente():
     cursor = django_cursor.connection.cursor()
     #parametros 
     for x in s:
-        rut = x[0]  
-    # sentencia = "select * from catalogo_reserva where rut_id = '{}')".format(rut)
+        rut = x[0] 
     sentencia = "select r.id,r.total,r.check_in,r.check_out,r.rut_id,d.nombre,r.estado from catalogo_reserva  r join catalogo_depto d on (r.depto_id = d.id_depto ) where rut_id ='{}'".format(rut)
     cursor.execute(sentencia)
     r = tuple(cursor.fetchall()) 
