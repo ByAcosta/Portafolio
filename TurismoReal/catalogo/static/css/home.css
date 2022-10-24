@@ -21,11 +21,11 @@ header {
     position: sticky;
     width: 100%;   
 }
-.segundo-nav .divv{
+/* .segundo-nav .divv{
     position: s;
     width: 100%;  height: 100vh;
     line-height: 100vh;
-}
+} */
 /* .segundo-nav section:nth-of-type(2n+1){
    background: #fcfbf9; 
 }
@@ -59,11 +59,11 @@ header {
     font-size: 62px;
 }
 
-p {
+.p-home {
     text-align: justify;
     font-size: 18px;
     padding-top: 100px;
-    padding-left: 50px;
+    /* padding-left: 50px; */
 }
 
 @media (max-width: 800px) {
@@ -152,6 +152,7 @@ p {
     transition: all 0.2s;
     z-index: 1;
     color: #b3b3b3;
+    opacity: 0;
 }
 
 #label-estadia {
@@ -161,6 +162,7 @@ p {
     transition: all 0.2s;
     z-index: 1;
     color: #b3b3b3;
+    opacity: 0;
 }
 
 .label-date1 {
@@ -172,6 +174,7 @@ p {
     padding: 0 2px;
     z-index: 1;
     color: #b3b3b3;
+    opacity: 0;
 }
 
 .label-date2 {
@@ -183,6 +186,7 @@ p {
     padding: 0 2px;
     z-index: 1;
     color: #b3b3b3;
+    opacity: 0;
 }
 
 .text-input {
@@ -201,33 +205,33 @@ p {
 
 .label::before {
     content: "";
-    height: 5px;
+    height: 2px;
     background: #272530;
-    background-color: #24262ba7;
+    background-color: #24262b;
     position: absolute;
-    top: 12px;
+    top: 13px;
     width: 100%;
     z-index: -1;
 }
 
 .label-date1::before {
     content: "";
-    height: 5px;
+    height: 2px;
     background: #272530;
-    background-color: #24262ba7;
+    background-color: #24262b;
     position: absolute;
-    top: 12px;
+    top: 13px;
     width: 100%;
     z-index: -1;
 }
 
 .label-date2::before {
     content: "";
-    height: 5px;
+    height: 2px;
     background: #272530;
-    background-color: #24262ba7;
+    background-color: #24262b;
     position: absolute;
-    top: 12px;
+    top: 13px;
     width: 100%;
     z-index: -1;
 }
@@ -241,6 +245,7 @@ p {
     top: 55px;
     color: #f49239;
     font-size: 14px;
+    opacity: 1;
 }
 
 .date-style:focus + .label-date1,
@@ -248,6 +253,7 @@ p {
     top: 55px;
     color: #f49239;
     font-size: 14px;
+    opacity: 1;
 }
 
 .date-style:focus + .label-date2,
@@ -255,11 +261,12 @@ p {
     top: 55px;
     color: #f49239;
     font-size: 14px;
+    opacity: 1;
 }
 
 .text-input::placeholder {
     font-size: 16px;
-    opacity: 0;
+    opacity: 1;
     transition: all 0.3s;
 }
 
@@ -572,4 +579,66 @@ p {
     .footer-col{
         width: 100%;
     }
+}
+
+/* card home */
+body {
+  background-color:  #eee;
+}
+.title {
+ 
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.card-block {
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    border: none;
+    border-top: 1px solid rgba(34, 36, 38, .1);
+    box-shadow: none;
+     
+}
+.card {
+    font-size: 1em;
+    overflow: hidden;
+    padding: 5;
+    border: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+    margin-top:20px;
+}
+
+.carousel-indicators li {
+    border-radius: 12px;
+    width: 12px;
+    height: 12px;
+    background-color: #404040;
+}
+.carousel-indicators li {
+    border-radius: 12px;
+    width: 12px;
+    height: 12px;
+    background-color: #404040;
+}
+.carousel-indicators .active {
+    background-color: white;
+    max-width: 12px;
+    margin: 0 3px;
+    height: 12px;
+}
+.carousel-control-prev-icon {
+ background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+ /* lex-direction: column;
+} */
+
+.btn {
+  margin-top: auto;
 }

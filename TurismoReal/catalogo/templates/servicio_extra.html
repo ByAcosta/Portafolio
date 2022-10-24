@@ -1,0 +1,62 @@
+{% extends 'dashboard.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turimos Real</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% block css %}
+    {% endblock %} 
+    <link rel="stylesheet" href="{% static 'app/css/estilos.css' %}">  
+</head>
+
+{%block content %}
+{% load humanize %}
+
+<br>
+<div class="row">   
+    <div class="col-12 col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h1>Registro de Servicios Extras</h1>
+
+                <br>
+
+                <center>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <a href="{% url 'listar_tour' %}" style= "text-decoration: none; color: black;">
+                                <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="https://m.media-amazon.com/images/I/617URFimO7L._AC_.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <p class="card-text">Tour</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <a href="{% url 'listar_transporte' %}" style= "text-decoration: none; color: black;">
+                                <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="https://s3-us-west-2.amazonaws.com/enterreno-production/moments/photos/000/008/388/thumb/trafico-loc-colectiva-en-alameda-14ene1991-fortinmapocho.JPG" alt="Card image cap">
+                                    <div class="card-body">
+                                      <p class="card-text">Transporte</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>        
+    </div>
+</div>  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+<script src="{% static 'js/menu.js' %}"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

@@ -16,13 +16,12 @@
                 <!-- Social login form-->
                 <div class="card my-5" style="border-color: #C1C3C6 ;">
                     <div class="card-body p-5 text-center" style="background-color: #f49237;">
-                        <div class="h2 fw-light mb-3" style="color:black ;">Iniciar sesión </div>
+                        <div class="h2 fw-light mb-3" style="color:black ;">Iniciar sesión</div> <p>{{user.1}}</p>
                         <!-- Social login links-->
                         <a class="btn btn-icon btn-facebook mx-1" href="#!"><i class="fab fa-facebook-f fa-fw fa-sm"></i></a>
                         <a class="btn btn-icon btn-google mx-1" href="#!"><i class="fab fa-google fa-fw fa-sm"></i></a>
                         <a class="btn btn-icon btn-twitter mx-1" href="#!"><i class="fab fa-twitter fa-fw fa-sm text-white"></i></a>
                     </div>
-                    {{mensaje}}
                     <hr class="my-0" />
                     <div class="card-body p-5">
                         <!-- Login form-->
@@ -30,8 +29,8 @@
                             {% csrf_token %}
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
-                                <label class="text-gray-600 small" for="emailExample">Dirección de correo </label>
-                                <input class="form-control form-control-solid" type="text" placeholder="" name="email" id="email" aria-label="Email Address" aria-describedby="emailExample" />
+                                <label class="text-gray-600 small" for="rutExample">rut</label>
+                                <input class="form-control form-control-solid" type="text" placeholder="" name="rut" id="rut" aria-label="Email Address" aria-describedby="emailExample" />
                             </div>
                             <!-- Form Group (password)-->
                             <div class="mb-3">
@@ -55,7 +54,7 @@
                     <div class="card-body px-5 py-4">               
                         <div class="small text-center">
                             ¿Nuevo usuario?
-                            <a href="register.html" style="color: #f49237;">¡Create una cuenta!</a>
+                            <a href="{% url 'register' %}" style="color: #f49237;">¡Create una cuenta!</a>
                         </div>
                     </div>
                 </div>

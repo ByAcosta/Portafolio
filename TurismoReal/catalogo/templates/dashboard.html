@@ -9,7 +9,9 @@
         <title>Dashboard</title>
         {% load static %}
         <script src="{% static 'js/dashboard.js' %}"></script>
+        <script src="{% static 'js/steps.js' %}"></script>
         <link href="{%static 'css/styles.css' %}" rel="stylesheet" />
+        <link href="{%static 'css/steps.css' %}" rel="stylesheet" />
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" crossorigin="anonymous"></script>
@@ -99,8 +101,10 @@
                         <h6 class="dropdown-header d-flex align-items-center">
                             <img class="dropdown-user-img" src="assets/img/illustrations/profiles/profile-1.png" />
                             <div class="dropdown-user-details">
-                                <div class="dropdown-user-details-name">Valerie Luna</div>
-                                <div class="dropdown-user-details-email">vluna@aol.com</div>
+                            {% for x in usuario %}    
+                                <div class="dropdown-user-details-name">{{x.1}} <span> {{x.2}}</span></div> 
+                                <div class="dropdown-user-details-email">{{x.4}}</div>
+                            {% endfor %}    
                             </div>
                         </h6>
                         <div class="dropdown-divider"></div>
@@ -108,7 +112,7 @@
                             <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
                             Account
                         </a>
-                        <a class="dropdown-item" href="#!">
+                        <a class="dropdown-item" href="{% url 'login' %}">
                             <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
                             Logout
                         </a>
@@ -143,40 +147,45 @@
                             </a>
                             <div class="sidenav-menu-heading">Mantenedores</div>
 
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'listar_cliente' %}">
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                 Clientes
                             </a>
-                            <a class="nav-link" href="{% url 'depto' %}">
+                            <a class="nav-link" href="{% url 'listar_depto' %}">
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                 Departamentos
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'servicio_extra' %}">
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                 Servicios extras
                             </a>
-
-                            <div class="sidenav-menu-heading">Estadisticas</div>
-                            
-                            <a class="nav-link" href="#">
-                                <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Graficos
-                            </a>
-                            <a class="nav-link" href="{% url 'reserva' %}">
-                                <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Reservas
-                            </a>
-                            <a class="nav-link" href="#">
-                                <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Reportes
-                            </a>
+                            {% for x in usuario%}
+                                {%if x.10 == 1%}
+                                    <div class="sidenav-menu-heading">Estadisticas</div>
+                                    
+                                    <a class="nav-link" href="#">
+                                        <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                                        Graficos
+                                    </a>
+                                    <a class="nav-link" href="#">
+                                        <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                                        Reservas
+                                    </a>
+                                    <a class="nav-link" href="#">
+                                        <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                                        Reportes
+                                    </a>
+                                {% endif %}    
+                            {% endfor %}    
                         </div>
                     </div>
                     <!-- Sidenav Footer-->
                     <div class="sidenav-footer">
                         <div class="sidenav-footer-content">
                             <div class="sidenav-footer-subtitle">Sesión inciada por:</div>
-                            <div class="sidenav-footer-title">Valerie Luna</div>
+                            {% for x in usuario %}
+                                <div class="sidenav-footer-title">{{x.1}}</div>
+                            {% endfor %}
                         </div>
                     </div>
                 </nav>
