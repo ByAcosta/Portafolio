@@ -33,26 +33,22 @@
 
                     <br>
                     
-                    <div class="d-flex justify-content-left">
+                    <a style="float: right ; margin: 5px;">
                         <input type="submit" value="Editar" class="btn btn-primary">
-                        &nbsp;
-                        <button type="reset" class="btn btn-danger">Cancelar</button>
-                    </div>
+                    </a>
+
+                    <a style="float: right ; margin: 5px">
+                        <button type="reset" class="btn btn-outline-danger">Cancelar</button>
+                    </a>
+
+                    <a href="{% url 'listar_transporte' %}" style="float: right; margin: 5px; text-decoration: none;">
+                        <button type="button" class="btn btn-outline-primary">Atras</button>
+                    </a>
 
                     <br>
 
                     {{mensaje}}  
                 </form>
-                
-                <br>
-
-                <a class="nav-link" href="{% url 'listar_transporte' %}">
-                    <button type="button" class="btn btn-primary">Ver Tours</button>
-                </a>
-
-                <a class="nav-link" href="{% url 'listar_transporte' %}">
-                    <button type="button" class="btn btn-danger">Atras</button>
-                </a>
             </div>
         </div>        
     </div>

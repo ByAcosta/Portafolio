@@ -26,7 +26,9 @@ class Depto(models.Model):
     precio = models.IntegerField(default=0)
     descripcion = models.TextField(max_length=900)
     disponible = models.BooleanField()
-    imagen = models.ImageField(upload_to="catalogo/static/img/", null=True)   
+    imagen = models.ImageField(upload_to="catalogo/static/img/", null=True)
+    imagen2 = models.ImageField(upload_to="catalogo/static/img/", null=True)
+    imagen3 = models.ImageField(upload_to="catalogo/static/img/", null=True)   
     region = models.ForeignKey('Region', on_delete=models.PROTECT, null=True)
     comuna = models.ForeignKey('Comuna', on_delete=models.PROTECT, null=True)
 

@@ -32,8 +32,8 @@
                         <th>Descripcion</th>
                         <th>Guia</th>
                         <th>Precio</th>
-                        <th>Modificar</th>
                         <th>Eliminar</th>
+                        <th>Modificar</th>
                     </tr>
                     
                     {% for t in tour %}
@@ -44,10 +44,10 @@
                         <td>{{ t.nombre_completo_guia | title}}</td>
                         <td>{{ t.precio | title}}</td>
                         <td>
-                            <a href="{% url 'modificar_tour' t.id_tour %}" class = "btn btn-info btn-sm"> Modificar </a>
+                            <a href="{% url 'eliminar_tour' t.id_tour %}" class = "btn btn-danger btn-sm"> Eliminar </a>
                         </td>
                         <td>
-                            <a href="{% url 'eliminar_tour' t.id_tour %}" class = "btn btn-danger btn-sm"> Eliminar </a>
+                            <a href="{% url 'modificar_tour' t.id_tour %}" class = "btn btn-primary btn-sm"> Modificar </a>
                         </td>
                     </tr>
 
@@ -56,10 +56,16 @@
                 </table>
 
                 <br>
-                
-                <a class="nav-link" href="{% url 'tour' %}">
-                    <button type="button" class="btn btn-danger">Atras</button>
-                </a>
+
+                <div>
+                    <a class="nav-link" href="{% url 'tour' %}" style="float: right">
+                        <button type="button" class="btn btn-primary">Agregar</button>
+                    </a>
+                                    
+                    <a class="nav-link" href="{% url 'servicio_extra' %}" style="float: right">
+                        <button type="button" class="btn btn-outline-primary">Atras</button>
+                    </a>
+                </div>
             </div>
         </div>        
     </div>

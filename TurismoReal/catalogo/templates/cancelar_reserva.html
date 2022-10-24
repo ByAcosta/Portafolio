@@ -31,7 +31,7 @@
                     <br>
                     <div class="d-flex justify-content-end">
                         <a class="btn btn-md btn-primary" href="{%url 'reservas' %}" style="margin:5px ;">volver</a>
-                        <input class="btn btn-md btn-danger" type="submit" value="Cancelar" style="margin:5px ;">
+                        <input class="btn btn-md btn-danger" type="submit" value="Cancelar" style="margin:5px ;" onclick="cancelar()">
                         </div>
                     </div>         
                     {{mensaje}}
@@ -40,6 +40,11 @@
             </div>
         </div>
     </div>
-</div>            
+</div>
+<script>
+    function cancelar(){
+        document.getElementById('estado_in').value = "Cancelado"
+    }
+</script>
                  
 {% endblock %}

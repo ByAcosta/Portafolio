@@ -21,7 +21,7 @@
 <br>
 
 <div class="row">   
-    <div class="col-12 col-md-6 offset-md-3">
+    <div class="col-12 col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
                 <h1>Transportes</h1>
@@ -35,8 +35,8 @@
                         <th>Modelo</th>
                         <th>Marca</th>
                         <th>Precio</th>
-                        <th>Modificar</th>
                         <th>Eliminar</th>
+                        <th>Modificar</th>
                     </tr>
                     
                     {% for t in transporte %}
@@ -50,10 +50,10 @@
                         <td>{{ t.marca | title}}</td>
                         <td>{{ t.precio | title}}</td>
                         <td>
-                            <a href="{% url 'modificar_transporte' t.id_t %}" class = "btn btn-info btn-sm"> Modificar </a>
+                            <a href="{% url 'eliminar_transporte' t.id_t %}" class = "btn btn-danger btn-sm"> Eliminar </a>
                         </td>
                         <td>
-                            <a href="{% url 'eliminar_transporte' t.id_t %}" class = "btn btn-danger btn-sm"> Eliminar </a>
+                            <a href="{% url 'modificar_transporte' t.id_t %}" class = "btn btn-primary btn-sm"> Modificar </a>
                         </td>
                     </tr>
 
@@ -61,11 +61,15 @@
 
                 </table>
 
-                <br>
-                
-                <a class="nav-link" href="{% url 'transporte' %}">
-                    <button type="button" class="btn btn-danger">Atras</button>
-                </a>
+                <div>
+                    <a class="nav-link" href="{% url 'transporte' %}" style="float: right">
+                        <button type="button" class="btn btn-primary">Agregar</button>
+                    </a>
+                                    
+                    <a class="nav-link" href="{% url 'servicio_extra' %}" style="float: right">
+                        <button type="button" class="btn btn-outline-primary">Atras</button>
+                    </a>
+                </div>
             </div>
         </div>        
     </div>

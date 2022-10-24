@@ -31,9 +31,10 @@ def login(request):
     return render(request, 'login.html',data)
     
 def home(request):
+    departamentos = Depto2.objects.all()
     data = {
         'usuario':s,
-        'Depto':lista_deptos(),
+        'Depto':departamentos,
         'region':lista_region(),
         'comuna':lista_comuna(),
     }
@@ -293,7 +294,8 @@ def tour(request):
 
         if formulario.is_valid():
             formulario.save()
-            data["mensaje"] = "Guardado correctamente"
+            return redirect(to="listar_tour")
+
         else:
             data["form"] = formulario
 
@@ -343,7 +345,7 @@ def transporte(request):
 
         if formulario.is_valid():
             formulario.save()
-            data["mensaje"] = "Guardado correctamente"
+            return redirect(to="listar_transporte")
         else:
             data["form"] = formulario
 

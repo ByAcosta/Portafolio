@@ -1,3 +1,4 @@
+from faulthandler import disable
 from django import forms
 from django.forms import fields
 from .models import *
@@ -34,7 +35,7 @@ class UsuarioForm(forms.ModelForm):
         fields = '__all__'
 
 class ReservaForm(forms.ModelForm):
-    estado = forms.CharField(widget=forms.TextInput(attrs={"value":"Cancelado"}))
+    estado = forms.CharField(widget=forms.TextInput(attrs={"id":"estado_in"}))
     class Meta:
         model = Reserva
         fields = ['estado']
