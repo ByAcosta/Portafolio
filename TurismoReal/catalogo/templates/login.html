@@ -29,8 +29,8 @@
                             {% csrf_token %}
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
-                                <label class="text-gray-600 small" for="rutExample">rut</label>
-                                <input class="form-control form-control-solid" type="text" placeholder="" name="rut" id="rut" aria-label="Email Address" aria-describedby="emailExample" />
+                                <label class="text-gray-600 small" for="rutExample">Rut</label>
+                                <input class="form-control form-control-solid" type="text" placeholder="Escriba su rut sin puntos ni guión" name="rut" id="rut" aria-label="Email Address" aria-describedby="emailExample" onkeyup="formateoRut(this)" />
                             </div>
                             <!-- Form Group (password)-->
                             <div class="mb-3">
