@@ -7,7 +7,7 @@ body {
 }
 
 #regForm {
-  background-color: #f1f1f1;
+  background-color: #eeeaea;
   margin: 100px auto;
   padding: 40px;
   width: 70%;
@@ -18,41 +18,68 @@ h1 {
   text-align: center;  
 }
 
-#label-nombre {
-  top: 215px;
-  padding-left: 3px;
-  font-size: 18px;
+.label-form {
+  position: absolute;
   transition: all 0.2s;
+  font-size: 17px;
+  z-index: 0;
+  color: #f49239;
+  opacity: 1;
+}
+
+#label-rut {
+  top: 167px;
+  padding-left: 3px;
   z-index: 1;
-  color: #b3b3b3;
+}
+
+
+#label-nombre {
+  top: 256px;
+  padding-left: 3px;
+  z-index: 1;
 }
 
 #label-apellido {
-  top: 306px;
+  top: 346px;
   padding-left: 3px;
-  font-size: 18px;
-  transition: all 0.2s;
   z-index: 1;
-  color: #b3b3b3;
 }
 
 #label-email {
-  top: 395px;
+  top: 435px;
   padding-left: 3px;
-  font-size: 18px;
-  transition: all 0.2s;
   z-index: 1;
-  color: #b3b3b3;
 }
 
 #label-telefono {
-  top: 483px;
-  margin-left: 100px;
-  /* padding-left: 3px; */
-  font-size: 18px;
-  transition: all 0.2s;
+  top: 525px;
+  padding-left: 3px;
   z-index: 1;
-  color: #b3b3b3;
+}
+
+#label-titulo {
+  top: 174px;
+  padding-left: 3px;
+  z-index: 1;
+}
+
+#label-descripcion {
+  top: 279px;
+  padding-left: 3px;
+  z-index: 1;
+}
+
+#label-precio {
+  top: 383px;
+  padding-left: 3px;
+  z-index: 1;
+}
+
+#label-habitaciones {
+  top: 488px;
+  padding-left: 3px;
+  z-index: 1;
 }
 
 .label-form{
@@ -65,7 +92,7 @@ h1 {
   margin-top: 40px;
   width: 100%;
   font-size: 17px;
-  border: 2px solid #785a3f;
+  border: 2px solid #f49239;
   background: #24262b;
   border-radius: 5px;
   outline: none;
@@ -73,57 +100,14 @@ h1 {
   color: #fff;
 }
 
-.label+.label-form::before {
+.label-form::before {
   content: "";
-  height: 5px;
-  background: #272530;
-  background-color: #24262ba7;
+  height: 2px;
+  background-color: #24262b;
   position: absolute;
-  top: 12px;
+  top: 16px;
   width: 100%;
   z-index: -1;
-}
-
-.text-input-form:focus {
-  border: 2px solid #f49239;
-}
-
-.text-input-form:focus + #label-nombre,
-.filled {
-    top: 193px;
-    color: #f49239;
-    font-size: 14px;
-}
-
-.text-input-form:focus + #label-apellido,
-.filled {
-    top: 283px;
-    color: #f49239;
-    font-size: 14px;
-}
-
-.text-input-form:focus + #label-email,
-.filled {
-    top: 372px;
-    color: #f49239;
-    font-size: 14px;
-}
-
-.text-input-form:focus + #label-telefono,
-.filled {
-    top: 473px;
-    color: #f49239;
-    font-size: 14px;
-}
-
-.text-input-form::placeholder {
-  font-size: 16px;
-  opacity: 0;
-  transition: all 0.3s;
-}
-
-.text-input-form:focus::placeholder {
-  opacity: 1;
 }
 
 input.invalid {
@@ -153,14 +137,6 @@ input.invalid {
 .btn-step:active {
   color: #fff;
   background-color: #24262b;
-}
-
-/* button:hover {
-  opacity: 0.8;
-} */
-
-#prevBtn {
-  background-color: #bbbbbb;
 }
 
 .step {
