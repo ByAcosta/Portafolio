@@ -1,4 +1,5 @@
 from cgi import print_directory
+from multiprocessing import context
 from sqlite3 import Cursor
 from typing_extensions import runtime
 from django.shortcuts import render ,redirect, get_object_or_404
@@ -9,6 +10,7 @@ from django.conf import settings
 from django.db import connection
 from .forms import *
 from .models import Depto as Depto2
+from .filters import *
 import cx_Oracle
 
 def login(request):
@@ -32,11 +34,14 @@ def login(request):
     
 def home(request):
     departamentos = Depto2.objects.all()
+    filtro = DeptosFiltro(request.GET, queryset=departamentos)
+    departamentos = filtro.qs
     data = {
         'usuario':s,
         'Depto':departamentos,
         'region':lista_region(),
         'comuna':lista_comuna(),
+        'filtro':filtro,
     }
     return render( request, 'home.html', data)
 

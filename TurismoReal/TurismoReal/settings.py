@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'catalogo',
     'django.contrib.humanize',
     'crispy_forms',
+    "django_filters",
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
