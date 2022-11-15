@@ -5,7 +5,7 @@ from typing_extensions import runtime
 from django.shortcuts import render ,redirect, get_object_or_404
 from django.views import generic
 from catalogo.models import *
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django.db import connection
 from .forms import *

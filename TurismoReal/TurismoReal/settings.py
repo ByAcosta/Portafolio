@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'crispy_forms',
     "django_filters",
+    #"paypal.apps.PaypalConfig"
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
