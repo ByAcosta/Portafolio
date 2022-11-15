@@ -1,4 +1,5 @@
 from cgi import print_directory
+from multiprocessing import context
 from sqlite3 import Cursor
 from typing_extensions import runtime
 from django.shortcuts import render ,redirect, get_object_or_404
@@ -9,6 +10,7 @@ from django.conf import settings
 from django.db import connection
 from .forms import *
 from .models import Depto as Depto2
+from .filters import *
 import cx_Oracle
 
 def login(request):
@@ -32,11 +34,14 @@ def login(request):
     
 def home(request):
     departamentos = Depto2.objects.all()
+    filtro = DeptosFiltro(request.GET, queryset=departamentos)
+    departamentos = filtro.qs
     data = {
         'usuario':s,
         'Depto':departamentos,
         'region':lista_region(),
         'comuna':lista_comuna(),
+        'filtro':filtro,
     }
     return render( request, 'home.html', data)
 
@@ -201,12 +206,12 @@ class Reservas(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         s
-        x = Tour.objects.all()
-        i = Transporte.objects.all()
+        e = Tour.objects.all()
+        x = Transporte.objects.all()
         context = super().get_context_data(**kwargs)
         context['usuario'] = s
-        context['tour'] = x
-        context['trasnporte'] = i
+        context['tour'] = e
+        context['transporte'] = x
         return context
     
     model = Depto  
@@ -224,7 +229,7 @@ def agregar_depto(request):
         if formulario.is_valid():
             formulario.save()
             # messages.success(request, "Guardado Correctamente")
-            return redirect(to="listar_depto")
+            return redirect(to="inventario")
         else:
             data["form"] = formulario   
 
@@ -434,10 +439,15 @@ def comprar(request):
         check_in = request.POST.get('check_in')
         check_out = request.POST.get('check_out')
         estado = 'Reservado'
+        acompanante = request.POST.get('number_compania')
+        id_tour = request.POST.get('id_tour')
+        precio_tour = request.POST.get('precio_tour')
+        id_transporte = request.POST.get('idTr')
+        precio_transporte = request.POST.get('precioTr')
         precio_depto = request.POST.get('precioD')
         resta = int(precio_depto) * 0.4
-        total = int(precio_depto) - resta
-        query = "insert into catalogo_reserva(total,check_in,check_out,rut_id,depto_id,estado) values({},'{}','{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto,estado)
+        total = int(precio_depto) + int(precio_tour) + int(precio_transporte) - resta
+        query = "insert into catalogo_reserva(total,check_in,check_out,rut_id,depto_id,estado,nro_acompanante,tour_id, transporte_id) values({},'{}','{}','{}','{}','{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto,estado,acompanante,id_tour,id_transporte)
         cursor.execute(query)   
     return redirect('reservas')
 

@@ -34,10 +34,6 @@
                         <th>Colchon</th>
                         <th>Sabanas</th>
                         <th>Editar</th>
-                        <th>Eliminar</th>
-                        <th>
-                            <a href="{% url 'inventario' %}" class="btn btn-success btn-sm">Agregar</a> 
-                        </th>
                     </tr>
                     
                     {% for i in inventario %}
@@ -50,9 +46,6 @@
                         <td>{{ i.sabanas | title}}</td>
                         <td>
                             <a href="{% url 'modificar_inventario' i.id_i %}" class="btn btn-warning btn-sm">Editar</a> 
-                        </td>
-                        <td>
-                            <a href="{% url 'eliminar_inventario' i.id_i %}" class="btn btn-danger btn-sm">Eliminar</a> 
                         </td>
                     </tr>
 

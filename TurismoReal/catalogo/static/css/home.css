@@ -3,10 +3,6 @@ html{
 }
 
 header {
-    /* display: flex;
-    justify-content: space-around;
-    display: grid;
-    align-items: center;  */
     position: fixed;
     top: 0;
     width: 100%;
@@ -15,28 +11,17 @@ header {
     z-index: 1;
 }
 
+#map{
+    height: 700px;
+    width: 100%;
+}
+
 /* SEGUNDO NAVBAR */
 .segundo-nav{
     position: -webkit-sticky;
     position: sticky;
     width: 100%;   
 }
-/* .segundo-nav .divv{
-    position: s;
-    width: 100%;  height: 100vh;
-    line-height: 100vh;
-} */
-/* .segundo-nav section:nth-of-type(2n+1){
-   background: #fcfbf9; 
-}
-.segundo-nav section:nth-of-type(2n){
-    background: #f8f6f1; 
-} */
-/* .segundo-nav div h1{
-   text-align: center;
-   font-size: 70px;
-   text-transform: uppercase;
-} */
 
 .img-content{
     display: block;
@@ -147,6 +132,47 @@ header {
    justify-content: space-around;
 }
 
+#form{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+#form-filtro label{
+    position: absolute;
+    margin-left: 20px;
+    margin-top: -2px;
+    transition: all 0.2s;
+    z-index: 1;
+    color: #b3b3b3;
+    opacity: 1;
+}
+
+#form-filtro input{
+    padding-left: 10px; 
+    margin: 5px;
+    height: 65px;
+    border: 2px solid #785a3f;
+    background: #24262b;
+    border-radius: 5px;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s;
+    color: #fff;
+}
+
+#form-filtro select {
+    padding-left: 10px; 
+    width: 17%;
+    margin: 5px;
+    height: 65px;
+    border: 2px solid #785a3f;
+    background: #24262b;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #b3b3b3;
+}
+
 .label {
     position: absolute;
     transition: all 0.2s;
@@ -203,13 +229,14 @@ header {
     color: #fff;
 }
 
-.label::before {
+label::before {
     content: "";
-    height: 2px;
+    padding-left: 10px;
+    height: 3px;
     background: #272530;
     background-color: #24262b;
     position: absolute;
-    top: 13px;
+    top: 12px;
     width: 100%;
     z-index: -1;
 }
@@ -236,32 +263,12 @@ header {
     z-index: -1;
 }
 
-.text-input:focus {
+#form-filtro input:focus {
     border: 2px solid #f49239;
 }
 
-.text-input:focus + #label-estadia,
-.filled {
-    top: 55px;
-    color: #f49239;
-    font-size: 14px;
-    opacity: 1;
-}
-
-.date-style:focus + .label-date1,
-.filled {
-    top: 55px;
-    color: #f49239;
-    font-size: 14px;
-    opacity: 1;
-}
-
-.date-style:focus + .label-date2,
-.filled {
-    top: 55px;
-    color: #f49239;
-    font-size: 14px;
-    opacity: 1;
+#form-filtro select:focus {
+    border: 2px solid #f49239;
 }
 
 .text-input::placeholder {
@@ -377,7 +384,7 @@ header {
         flex-direction: column;
         height: 400px;
     }
-    .div-check .div-check-content, #input-estadia, 
+    .div-check #form-filtro .div-check-content, label, input, select, #input-estadia, 
     #input-checkin, #input-checkout, #drop-habitaciones, #btn-buscar{
         width: 90%;
         margin: 10px auto 10px auto;

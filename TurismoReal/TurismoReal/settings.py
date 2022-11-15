@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'catalogo',
     'django.contrib.humanize',
     'crispy_forms',
+    "django_filters",
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -82,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': '127.0.0.1:1521/xe',
-        'USER': 'c##admin2',
+        'USER': 'c##admin3',
         'PASSWORD': 'duoc',
         'TEST': {
             'USER': 'default_test',

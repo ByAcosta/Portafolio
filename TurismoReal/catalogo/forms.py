@@ -44,4 +44,4 @@ class InventarioForm(forms.ModelForm):
 
     class Meta:
         model = Inventario
-        fields = '__all__'
+        fields = ['jabon','toalla','colchon','sabanas']
