@@ -3,7 +3,7 @@
 {% block content%}
         <div class="container-fluid" id="top" style="background-image: url(../static/img/bedroom.jpg); background-position: 50% 75%; padding: 10px;">
             <div class="div-check" id="top">
-                <div class="div-check-content">
+                <!-- <div class="div-check-content">
                     <input class="text-input" type="text" id="input-estadia" autocomplete="off" placeholder="Lugar de estadía">
                     <label class="label" for="input-estadia" id="label-estadia">Estadía</label>
                     <input class="date-style" type="text" name="" id="input-checkin" placeholder="Fecha de llegada" onclick="(this.type='date')" onblur="(this.type='text')" style="color: #fff">
@@ -18,7 +18,11 @@
                         <option value="4">4</option>
                     </select>
                     <button type="button" class="btn-style" id="btn-buscar">Buscar</button>
-                </div>
+                </div> -->
+                <form class="form-inline justify-content-center" id="form-filtro" method="get" action="#sec4">
+                    {{filtro.form}}
+                    <input class="btn-style" id="btn-buscar" type="submit" value="Buscar">
+                </form>
             </div>
         </div> 
         <div class="segundo-nav">
@@ -28,8 +32,8 @@
                 <li><a href="#sec3">galería</a></li>
                 <li><a href="#sec4">reservas</a></li>
                 <li><a href="#sec5">ubicación</a></li>
-             </ul>
-             <div class="container">
+            </ul>
+            <div class="container">
                 <div class="sec2" id="sec2">
                     <br><br><br><br><br>
                     <hr>
@@ -40,7 +44,7 @@
                             <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/184305239.jpg?k=2d22fe63ae1f8960e057238c98fb436f7bd9f65854e3a5e918607c5cfa1d0a52&o=&hp=1" alt=""  height="400px">
                         </div>
                         <p class="p-home">
-                            1Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus cupiditate cum quo aut blanditiis itaque labore perspiciatis dolor laborum. Deleniti, velit exercitationem. Dolorem inventore fuga, sed ipsam optio magnam delectus!
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus cupiditate cum quo aut blanditiis itaque labore perspiciatis dolor laborum. Deleniti, velit exercitationem. Dolorem inventore fuga, sed ipsam optio magnam delectus!
                             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, quam doloribus saepe cum atque, voluptate consequuntur facilis consequatur ea dolores rerum doloremque quia obcaecati beatae earum mollitia, consectetur provident ratione.
                         </p>
                     </div>
@@ -55,24 +59,26 @@
                         </p>
                     </div>
                 </div>
-                <br>
-                <hr>
-                <h1 class="titulos">Departamentos disponibles</h1>
-                <hr><br>
+                <!-- SECCION 4 -->
                 <div id="sec4">
+                    <br><hr>
+                    <h1 class="titulos">Departamentos disponibles</h1>
+                    <hr><br>
                     <div class="row">
                     {% for x in Depto %}
                         {% if x.disponible == 1 %}
                         <!-- Card Start -->
                             <div class="col-md-3 px-3">
                                 <div class="card-block px-6">
-                                    <h4 class="card-title">{{x.nombre}}</h4>
-                                    <br>
-                                    <p class="card-text">
-                                    {{x.descripcion}}
-                                    </p>
+                                    <h4 class="card-title" style="float: left;">{{x.nombre}}</h4>
+                                    <h4 class="card-title" style="float: right;"><span>$</span>{{x.precio}}</h4>
+                                    <br><br>
+                                    <p class="card-text" style="">{{x.descripcion}}</p>
                                     <p class="card-text"><span>Habitaciones: </span>{{x.habitaciones}}</p>
-                                    <br>
+                                    <p class="card-text"><span>Región: </span>{{x.region}}</p>
+                                    <p class="card-text"><span>Comuna: </span>{{x.comuna}}</p>
+                                    
+                                    <hr>
                                     <a href="{% url 'depto-detail' x.id_depto %}" class="btn btn-info btn-md" style="display: flexbox ;">Reservar</a>
                                 </div>
                                 <br><br>
@@ -112,6 +118,13 @@
                         {%endif%}
                     {%endfor%}
                     </div>
+                </div>
+                <!-- FIN SECCION 4 -->
+                <div id="sec5">
+                    <br><hr>
+                    <h1 class="titulos">Ubicación</h1>
+                    <hr><br>
+                    <div id="map"></div>
                 </div>
             </div>
             <br>
