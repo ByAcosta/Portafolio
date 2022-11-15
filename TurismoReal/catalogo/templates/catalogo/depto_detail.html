@@ -53,6 +53,32 @@
       </p>
     <!-- <p><input class="date-style" type="date" name="" id="check_out" placeholder="Fecha de ida" onclick="(this.type='date')" onblur="(this.type='text')" style="color: #fff"></input></p> -->
       <p><input  oninput="this.className = ''" name="check_out" value="" type="date"></p>
+      <!-- pa avanzar xd 
+      {%for x in trasnporte%}
+        <div class="card col-4">
+            <div class="card-header">Transporte</div>
+            <div class="card-body">
+              <input type="text" class="idTr" id="idTr" value="{{x.id_t}}" style="display: none;" readonly>
+              <input type="text" class="nombre" id="nombreTr" value="" readonly>
+              <input type="text" class="precioTr" id="precioTr" value="{{x.precio}}" readonly>
+              <br><br>
+              <center>
+                <input type="radio" class="btn-check btn-sm" id="success-outlined" autocomplete="off" checked onclick="si()">
+                <label class="btn btn-outline-success" for="success-outlined">Si</label>
+                <input type="radio" class="btn-check btn-sm" id="danger-outlined" autocomplete="off" onclick="no()">
+                <label class="btn btn-outline-danger" for="danger-outlined">No</label>
+              </center>
+            </div>
+        </div>
+        <script type="text/JavaScript">
+          function no(){
+              document.getElementById('precioTr').value = 0
+          }
+          function si(){
+              document.getElementById('precioTr').value = {{x.precio}}
+          }
+      </script>
+      {% endfor %} -->
     </div>
     <br><br>
     <div class="tab">
@@ -72,5 +98,4 @@
       <span class="step"></span>
     </div>
   </form>
-
 {% endblock %}
