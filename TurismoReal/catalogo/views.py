@@ -3,7 +3,9 @@ from multiprocessing import context
 from sqlite3 import Cursor
 from typing_extensions import runtime
 from django.shortcuts import render ,redirect, get_object_or_404
+from django.core.mail import EmailMultiAlternatives
 from django.views import generic
+from django.template.loader import get_template
 from catalogo.models import *
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
@@ -429,6 +431,21 @@ def eliminar_cliente(request, rut):
     return redirect(to="listar_cliente")
 
 #reserva
+def send_email_reserva(mail):
+    context = {'mail':mail}
+    template = get_template('catalogo/correo.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'Prueba de envio de correo Django',
+        'Turismo Real',
+        settings.EMAIL_HOST_USER,
+        [mail]
+    )
+
+    email.attach_alternative(content, 'text/html')
+    email.send()
+
 def comprar(request):
     if request.method =='POST':
         django_cursor = connection.cursor()
@@ -448,7 +465,10 @@ def comprar(request):
         resta = int(precio_depto) * 0.4
         total = int(precio_depto) + int(precio_tour) + int(precio_transporte) - resta
         query = "insert into catalogo_reserva(total,check_in,check_out,rut_id,depto_id,estado,nro_acompanante,tour_id, transporte_id) values({},'{}','{}','{}','{}','{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto,estado,acompanante,id_tour,id_transporte)
-        cursor.execute(query)   
+        cursor.execute(query)
+
+        mail = request.POST.get('email')
+        send_email_reserva(mail)
     return redirect('reservas')
 
 def lista_reserva_cliente():
