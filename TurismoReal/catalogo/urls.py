@@ -13,6 +13,7 @@ urlpatterns= [
     path('Historial/reservas', reservas_cliente, name="reservas"),
     path('Historial/cancelar_reserva/<id>/', Cancelar_reserva, name="cancelar"),
     path('Depto/<int:pk>', Reservas.as_view() ,name='depto-detail'), 
+    path('dashboard/Reservas', reservasF ,name='reservasF'),
     # CRUD TOMAS
     path('agregar/', agregar_depto, name="agregar_depto"),
     path('listar/', listar_depto, name="listar_depto"),

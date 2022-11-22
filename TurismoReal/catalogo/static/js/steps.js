@@ -10,7 +10,7 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Pagar";
+    document.getElementById("nextBtn").style.display = "none";
   } else {
     document.getElementById("nextBtn").innerHTML = "Siguiente";
   }

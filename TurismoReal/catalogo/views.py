@@ -431,8 +431,9 @@ def eliminar_cliente(request, rut):
     return redirect(to="listar_cliente")
 
 #reserva
-def send_email_reserva(mail):
-    context = {'mail':mail}
+def send_email_reserva(mail,rut):
+    context = {'mail':mail,
+               'rut' : rut}
     template = get_template('catalogo/correo.html')
     content = template.render(context)
 
@@ -468,7 +469,7 @@ def comprar(request):
         cursor.execute(query)
 
         mail = request.POST.get('email')
-        send_email_reserva(mail)
+        send_email_reserva(mail,rut)
     return redirect('reservas')
 
 def lista_reserva_cliente():
@@ -576,3 +577,9 @@ def eliminar_inventario(request, id_i):
     inventario.delete()
     return redirect(to="listar_inventario")
 
+def reservasF(request):
+    data = {
+        'usuario':s,
+        'reservas':lista_reserva(),
+    }
+    return render( request, 'reservasF.html', data)
