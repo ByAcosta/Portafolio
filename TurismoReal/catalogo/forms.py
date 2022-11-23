@@ -40,6 +40,15 @@ class ReservaForm(forms.ModelForm):
         model = Reserva
         fields = ['estado']
 
+class ReservasForm(forms.ModelForm):
+    estado = forms.CharField(widget=forms.TextInput(attrs={"id":"estado_in"}))
+    total = forms.CharField(widget=forms.TextInput(attrs={"id":"total"}))
+    diferencia = forms.CharField(widget=forms.TextInput(attrs={"id":"diferencia"}))
+
+    class Meta:
+        model = Reserva
+        fields = ['estado','total','diferencia']
+
 class InventarioForm(forms.ModelForm):
 
     class Meta:

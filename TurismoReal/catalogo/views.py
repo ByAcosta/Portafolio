@@ -3,14 +3,17 @@ from multiprocessing import context
 from sqlite3 import Cursor
 from typing_extensions import runtime
 from django.shortcuts import render ,redirect, get_object_or_404
-from django.views import generic
+from django.core.mail import EmailMultiAlternatives
+from django.views import generic , View
+from django.template.loader import get_template
 from catalogo.models import *
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django.db import connection
 from .forms import *
 from .models import Depto as Depto2
 from .filters import *
+from .utils import render_to_pdf
 import cx_Oracle
 
 def login(request):
@@ -229,7 +232,7 @@ def agregar_depto(request):
         if formulario.is_valid():
             formulario.save()
             # messages.success(request, "Guardado Correctamente")
-            return redirect(to="inventario")
+            return redirect(to="listar_inventario")
         else:
             data["form"] = formulario   
 
@@ -429,6 +432,22 @@ def eliminar_cliente(request, rut):
     return redirect(to="listar_cliente")
 
 #reserva
+def send_email_reserva(mail,rut):
+    context = {'mail':mail,
+               'rut' : rut}
+    template = get_template('catalogo/correo.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'Prueba de envio de correo Django',
+        'Turismo Real',
+        settings.EMAIL_HOST_USER,
+        [mail]
+    )
+
+    email.attach_alternative(content, 'text/html')
+    email.send()
+
 def comprar(request):
     if request.method =='POST':
         django_cursor = connection.cursor()
@@ -447,8 +466,12 @@ def comprar(request):
         precio_depto = request.POST.get('precioD')
         resta = int(precio_depto) * 0.4
         total = int(precio_depto) + int(precio_tour) + int(precio_transporte) - resta
-        query = "insert into catalogo_reserva(total,check_in,check_out,rut_id,depto_id,estado,nro_acompanante,tour_id, transporte_id) values({},'{}','{}','{}','{}','{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto,estado,acompanante,id_tour,id_transporte)
-        cursor.execute(query)   
+        diferencia = resta
+        query = "insert into catalogo_reserva(total,check_in,check_out,rut_id,depto_id,estado,nro_acompanante,tour_id, transporte_id,diferencia) values({},'{}','{}','{}','{}','{}','{}','{}','{}',{})".format(total,check_in,check_out,rut,id_depto,estado,acompanante,id_tour,id_transporte,diferencia)
+        cursor.execute(query)
+
+        mail = request.POST.get('email')
+        send_email_reserva(mail,rut)
     return redirect('reservas')
 
 def lista_reserva_cliente():
@@ -555,4 +578,40 @@ def eliminar_inventario(request, id_i):
     inventario = get_object_or_404(Inventario, id_i=id_i)
     inventario.delete()
     return redirect(to="listar_inventario")
+
+def reservasF(request):
+    data = {
+        'usuario':s,
+        'reservas':Reserva.objects.all()
+    }
+    return render( request, 'reservasF.html', data)
+
+def Pagar_reserva(request, id):
+    
+    Reservas = get_object_or_404(Reserva , id = id)
+
+    data = {
+        'form': ReservasForm(instance=Reservas),
+        'reserva': lista_reserva(),
+        }
+
+    if request.method == 'POST':
+        formulario = ReservasForm(data=request.POST, instance=Reservas, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to="reservasF")
+        data['form'] = formulario
+
+    return render(request, 'pagar_reserva.html', data)
+
+def ReservasDetail_view(request, id):
+    reserva = get_object_or_404(Reserva, id=id)
+    context = {
+        "reserva": reserva
+    }
+    pdf = render_to_pdf('catalogo/reserva_detail.html',context)
+    return HttpResponse(pdf,content_type='application/pdf')
+
+
+
 

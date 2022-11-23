@@ -34,27 +34,30 @@ class Depto(models.Model):
 
     def get_absolute_url(self):
         return reverse('depto-detail', args=[int(self.id_depto)])
+
+    def __str__(self):
+        return self.nombre    
      
 class Region(models.Model):
     id_reg = models.IntegerField(primary_key=True)
     nombre = models.TextField(max_length=50)
 
     def __str__(self):
-        return self.nombre
+        return self.nombre 
 
 class Comuna(models.Model):
     id_com = models.IntegerField(primary_key=True)
     nombre = models.TextField(max_length=50) 
 
     def __str__(self):
-        return self.nombre
+        return self.nombre 
 
 class Rol(models.Model):
     id_rol = models.IntegerField(primary_key=True)
     nombre = models.TextField(max_length=50)  
 
     def __str__(self):
-        return self.nombre
+        return self.nombre 
 
 class Reserva(models.Model):
     id = models.AutoField(primary_key=True)
@@ -63,10 +66,14 @@ class Reserva(models.Model):
     check_out = models.DateField(default=datetime.date.today)
     estado = models.CharField(max_length=50, null=True)
     nro_acompanante = models.IntegerField(default=0)
+    diferencia = models.IntegerField(default=0)
     rut = models.ForeignKey('Usuario', on_delete=models.CASCADE, null=True)
     depto = models.ForeignKey('Depto', on_delete=models.CASCADE, null=True)
     tour = models.ForeignKey('Tour', on_delete=models.CASCADE, null=True)
     transporte = models.ForeignKey('Transporte', on_delete=models.CASCADE, null=True)
+
+    def get_absolute_url(self):
+            return reverse('reserva-detail', args=[int(self.id)])
 
 class Transporte(models.Model):
     id_t = models.IntegerField(primary_key=True)
