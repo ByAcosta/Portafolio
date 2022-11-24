@@ -57,36 +57,6 @@ def index(request):
     }
     return render( request, 'index.html', data)    
 
-def Deptos(request):
-    
-    data = {
-        'Depto':lista_deptos(),
-        'region':lista_region(),
-        'comuna':lista_comuna(),
-        'form':  DeptoForm(),
-    }
-    
-    if request.method == 'POST':
-       
-        id_depto=request.POST.get('id_depto')
-        nombre=request.POST.get('nombre')
-        habitaciones=request.POST.get('habitaciones')
-        precio=request.POST.get('precio')
-        descripcion=request.POST.get('descripcion')
-        disponible=request.POST.get('disponible')
-        comuna_id=request.POST.get('comuna')
-        region_id=request.POST.get('region')
-        imagen=request.POST.get('imagen')
-        #imagenes=request.FILES['imagen'].read()
-        salida=agregar_depto(id_depto, nombre, habitaciones, precio, descripcion, disponible, comuna_id, region_id, imagen)
-        if salida == 1:
-            data['mensaje'] = 'Agregado correctamente'
-            data['Depto'] = lista_deptos()
-        else:
-            data['mensaje'] = ''
-
-    return render( request, 'depto.html', data)
-
 def register(request):
     data = {
     'comunas' : lista_comuna(),
@@ -132,6 +102,7 @@ def mantenedor_C(request):
         formulario = UsuarioForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
+            return redirect(to="listar_cliente")
         else:
             data["mensaje"] = formulario
 
@@ -186,14 +157,6 @@ def registrar(rut,nombre,apellido,username,email,celular,contraseña,direccion,c
     cursor.callproc('SP_REGISTER',[rut,nombre,apellido,username,email,celular,contraseña,direccion,comuna_id,region_id,rol_id,salida])
     return salida.getvalue()
 
-def logins(email , contraseña):
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    out_cur = django_cursor.connection.cursor()
-    salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_LOGIN',[out_cur,email,contraseña,salida])
-    return salida.getvalue()
-
 def reservas(request):
     data = {
         'Depto':lista_deptos(),
@@ -216,7 +179,6 @@ class Reservas(generic.DetailView):
         context['tour'] = e
         context['transporte'] = x
         return context
-    
     model = Depto  
 
 #CRUD DEPTOS
@@ -231,7 +193,6 @@ def agregar_depto(request):
         formulario = DeptoForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
-            # messages.success(request, "Guardado Correctamente")
             return redirect(to="listar_inventario")
         else:
             data["form"] = formulario   
@@ -264,7 +225,6 @@ def modificar_depto(request, id_depto):
         formulario = DeptoForm(data=request.POST, instance=producto, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
-            # messages.success(request, "Modificado Correctamente")
             return redirect(to="listar_depto")
             data['form'] = formulario
     
@@ -274,7 +234,6 @@ def eliminar_depto(request, id_depto):
 
     producto= get_object_or_404(Depto2, id_depto=id_depto)
     producto.delete()
-    # messages.success(request, "Eliminado Correctamente")
     return redirect("listar_depto")
 
 def prueba(request):
@@ -296,17 +255,13 @@ def tour(request):
         'form': TourForm(),
         'usuario' : s
     }
-
     if request.method == 'POST':
         formulario = TourForm (data=request.POST)
-
         if formulario.is_valid():
             formulario.save()
             return redirect(to="listar_tour")
-
         else:
             data["form"] = formulario
-
     return render(request, 'servicio_extra/tour.html', data)
 
 def listar_tour(request):
@@ -464,8 +419,10 @@ def comprar(request):
         id_transporte = request.POST.get('idTr')
         precio_transporte = request.POST.get('precioTr')
         precio_depto = request.POST.get('precioD')
-        resta = int(precio_depto) * 0.4
-        total = int(precio_depto) + int(precio_tour) + int(precio_transporte) - resta
+        dias = request.POST.get('dias')
+        pxd = int(precio_depto) * int(dias)
+        resta = int(pxd) * 0.4
+        total = int(pxd) + int(precio_tour) + int(precio_transporte) - resta
         diferencia = resta
         query = "insert into catalogo_reserva(total,check_in,check_out,rut_id,depto_id,estado,nro_acompanante,tour_id, transporte_id,diferencia) values({},'{}','{}','{}','{}','{}','{}','{}','{}',{})".format(total,check_in,check_out,rut,id_depto,estado,acompanante,id_tour,id_transporte,diferencia)
         cursor.execute(query)

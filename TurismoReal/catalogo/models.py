@@ -76,7 +76,7 @@ class Reserva(models.Model):
             return reverse('reserva-detail', args=[int(self.id)])
 
 class Transporte(models.Model):
-    id_t = models.IntegerField(primary_key=True)
+    id_t = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=15, default="Transporte")
     descripcion = models.TextField(max_length=1000)
     precio = models.IntegerField(default=0)
@@ -85,7 +85,7 @@ class Transporte(models.Model):
         return self.nombre
 
 class Tour(models.Model):
-    id_tour = models.IntegerField(primary_key=True)
+    id_tour = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=15, default="Tour")
     descripcion = models.TextField(max_length=1000)
     precio = models.IntegerField(default=0 , null = True)
