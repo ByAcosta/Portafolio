@@ -100,3 +100,13 @@ class Inventario(models.Model):
     colchon = models.IntegerField(default=0 , null = True)
     sabanas = models.IntegerField(default=0 , null = True)
     id_depto = models.ForeignKey('Depto', on_delete=models.CASCADE, null=True)
+
+class Checkout(models.Model):
+    id_checkout = models.AutoField(primary_key=True)
+    id_res = models.ForeignKey('Reserva', on_delete=models.CASCADE, null=True)
+    id_inv = models.ForeignKey('Inventario', on_delete=models.CASCADE, null=True)
+    descripcion = models.TextField(max_length=900)
+    multa_infraestructura = models.IntegerField(default=0 , null = True)
+    multa_inventario = models.IntegerField(default=0 , null = True)
+    multa_otros = models.IntegerField(default=0 , null = True)
+    total = models.IntegerField(default=0 , null = True)    

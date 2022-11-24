@@ -612,6 +612,35 @@ def ReservasDetail_view(request, id):
     pdf = render_to_pdf('catalogo/reserva_detail.html',context)
     return HttpResponse(pdf,content_type='application/pdf')
 
+#CHECKOUT
+
+def checkout(request, id_checkout):
+
+    checkout = get_object_or_404(Checkout, id_checkout=id_checkout)
+
+    data = {
+        'form':  CheckoutForm(instance=checkout),
+    }
+    if request.method == 'POST':
+        formulario = CheckoutForm(data=request.POST, instance=checkout)
+
+        if formulario.is_valid():
+            formulario.save()
+            data["mensaje"] = "Guardado correctamente"
+        else:
+            data["form"] = formulario
+
+    return render( request, 'checkout.html', data)
+
+
+def lista_checkout(request):
+
+    check = Checkout.objects.all()
+    data = {
+        'usuario':s,
+        'check':check
+    }
+    return render( request, 'lista_checkout.html', data)
 
 
 

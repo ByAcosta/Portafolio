@@ -40,4 +40,7 @@ urlpatterns= [
     path('dashboard/inventario', inventario, name="inventario"),
     path('modificar_inventario/<id_i>/', modificar_inventario, name="modificar_inventario"),
     path('eliminar_inventario/<id_i>/', eliminar_inventario, name="eliminar_inventario"),
+    #CHECKOUT
+    path('checkout/<id_checkout>/', checkout, name="checkout"),
+    path('lista_checkout/', lista_checkout, name="lista_checkout"),
     ]

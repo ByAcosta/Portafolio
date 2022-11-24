@@ -1,0 +1,62 @@
+{% extends 'dashboard.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turimos Real</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="{%static 'css/prueba.css' %}" rel="stylesheet" />
+    
+</head>
+
+{% block content %}
+{% load humanize %}
+<br>
+<br>
+<br>
+<div class="card">
+    <div class="card-body">
+        <h1>Listado de Reservas</h1>
+        <div class="card card-header-actions mx-auto">
+            <div class="card-header">
+                <div>
+
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-hover table.responsive-sm">
+            <tr>
+                <th>ID RESERVA</th>
+                <th>MULTA INFRAESTRUCTURA</th>
+                <th>MULTA INVENTARIO</th>
+                <th>MULTA OTROS</th>
+                <th>TOTAL A PAGAR</th>
+                
+            </tr>
+         {% for c in check %}
+        
+            <tr>
+                <td>{{ c.id_res }}</td>
+                <td>{{ c.multa_infraestructura }}</td>
+                <td>{{ c.multa_inventario }}</td>
+                <td>{{ c.multa_otros }}</td>
+                <td>{{ c.total }}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm">Descargar</a>  
+                    <a href="{% url 'checkout' c.id_checkout %}" class="btn btn-info btn-sm">Editar</a>                    
+                </td>
+                
+            </tr>
+
+        {% endfor %}          
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}

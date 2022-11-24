@@ -54,3 +54,34 @@ class InventarioForm(forms.ModelForm):
     class Meta:
         model = Inventario
         fields = ['jabon','toalla','colchon','sabanas']
+
+
+MULTA_INF = (
+    ("0", "Sin Daños"),
+    ("20000", "Pocos Daños"),
+    ("100000", "Multiples Daños"),
+
+)
+
+MULTA_INV = (
+    ("0", "Sin Daños"),
+    ("20000", "1 a 2 Objetos"),
+    ("50000", "3 o más Objetos"),
+)
+
+MULTA_OTR = (
+    ("0", "Sin Daños"),
+    ("10000", "Describir Daños"),
+
+)
+
+class CheckoutForm(forms.ModelForm):
+
+    multa_infraestructura = forms.ChoiceField(choices = MULTA_INF, widget=forms.Select(attrs={"id":"multa_inf"}))
+    multa_inventario = forms.ChoiceField(choices = MULTA_INV, widget=forms.Select(attrs={"id":"multa_inv"}))
+    multa_otros = forms.ChoiceField(choices =  MULTA_OTR, widget=forms.Select(attrs={"id":"multa_o"}))
+    total = forms.CharField(widget=forms.TextInput(attrs={"id":"total_checkout"}), label='')
+
+    class Meta:
+        model = Checkout
+        fields = ['multa_infraestructura','multa_inventario','multa_otros','descripcion', 'total']
