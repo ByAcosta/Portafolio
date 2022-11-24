@@ -431,14 +431,20 @@ def eliminar_cliente(request, rut):
     return redirect(to="listar_cliente")
 
 #reserva
-def send_email_reserva(mail,rut):
+def send_email_reserva(mail,rut,titulo,check_in,check_out,precio_tour,precio_transporte,total):
     context = {'mail':mail,
-               'rut' : rut}
+               'rut':rut,
+               'titulo':titulo,
+               'check_in':check_in,
+               'check_out':check_out,
+               'precio_tour':precio_tour,
+               'precio_transporte':precio_transporte,
+               'total':total}
     template = get_template('catalogo/correo.html')
     content = template.render(context)
 
     email = EmailMultiAlternatives(
-        'Prueba de envio de correo Django',
+        'Detalles de la reserva Turismo Real',
         'Turismo Real',
         settings.EMAIL_HOST_USER,
         [mail]
@@ -467,9 +473,9 @@ def comprar(request):
         total = int(precio_depto) + int(precio_tour) + int(precio_transporte) - resta
         query = "insert into catalogo_reserva(total,check_in,check_out,rut_id,depto_id,estado,nro_acompanante,tour_id, transporte_id) values({},'{}','{}','{}','{}','{}','{}','{}','{}')".format(total,check_in,check_out,rut,id_depto,estado,acompanante,id_tour,id_transporte)
         cursor.execute(query)
-
+        titulo = request.POST.get('tit_depto')
         mail = request.POST.get('email')
-        send_email_reserva(mail,rut)
+        send_email_reserva(mail,rut,titulo,check_in,check_out,precio_tour,precio_transporte,total)
     return redirect('reservas')
 
 def lista_reserva_cliente():
