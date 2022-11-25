@@ -38,7 +38,7 @@ header {
     margin-right: 8%;
 }
 
-.container .sec2 .titulos{
+.titulos{
     text-align: center;
     font-family: 'Great Vibes';
     font-size: 62px;
@@ -311,7 +311,7 @@ label::before {
 #btn-login {
     float: right;
     margin-top: 10px;
-    margin-right: 20px;
+    margin-right: 70px;
     width: 100px;
     height: 40px;
 }
