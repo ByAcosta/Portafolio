@@ -16,6 +16,7 @@ urlpatterns= [
     path('Dashboard/Detalle/<id>/', ReservasDetail_view , name="reserva-detail"),
     path('Depto/<int:pk>', Reservas.as_view() ,name='depto-detail'), 
     path('Dashboard/Reservas', reservasF ,name='reservasF'),
+    path('Dashboard/inicio', dashboard_inicio, name="inicio"),
     # CRUD TOMAS
     path('agregar/', agregar_depto, name="agregar_depto"),
     path('listar/', listar_depto, name="listar_depto"),

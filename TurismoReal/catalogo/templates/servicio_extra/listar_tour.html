@@ -29,8 +29,8 @@
                 <table class = "table table-striped table-hover table-responsive-sm">
                     <tr>
                         <th>ID</th>
+                        <th>Nombre</th>
                         <th>Descripcion</th>
-                        <th>Guia</th>
                         <th>Precio</th>
                         <th>Eliminar</th>
                         <th>Modificar</th>
@@ -40,8 +40,8 @@
                     
                     <tr>
                         <td>{{ t.id_tour | title}}</td>
+                        <td>{{ t.nombre | title}}</td>
                         <td>{{ t.descripcion | title}}</td>
-                        <td>{{ t.nombre_completo_guia | title}}</td>
                         <td>{{ t.precio | title}}</td>
                         <td>
                             <a href="{% url 'eliminar_tour' t.id_tour %}" class = "btn btn-danger btn-sm"> Eliminar </a>

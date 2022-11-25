@@ -25,6 +25,7 @@ class Depto(models.Model):
     habitaciones = models.IntegerField(default=1)
     precio = models.IntegerField(default=0)
     descripcion = models.TextField(max_length=900)
+    direccion = models.TextField(max_length=900, null=True)
     disponible = models.BooleanField()
     imagen = models.ImageField(upload_to="catalogo/static/img/", null=True)
     imagen2 = models.ImageField(upload_to="catalogo/static/img/", null=True)

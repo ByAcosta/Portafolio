@@ -599,5 +599,56 @@ def lista_checkout(request):
     }
     return render( request, 'lista_checkout.html', data)
 
+# funciones para dashboard (nacho)
+def ganancias():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    sentencia = "select sum(total) as suma  from catalogo_reserva where estado = 'Pagado'"
+    cursor.execute(sentencia)
+    ganancia = cursor.fetchone()
+    g = ganancia[0]
+
+    return g
+
+def c_pagados():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    p = "select Count(id) as Reservados  from catalogo_reserva where estado = 'Pagado'"
+    cursor.execute(p)
+    pa = cursor.fetchone()
+    pagado = pa[0]
+
+    return pagado
+
+def c_cancelados():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    c = "select Count(id) as Reservados  from catalogo_reserva where estado = 'Cancelado'"
+    cursor.execute(c)
+    ca = cursor.fetchone()
+    cancelado = ca[0]
+
+    return cancelado
+
+def c_reservados():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    r = "select Count(id) as Reservados  from catalogo_reserva where estado = 'Reservado'"
+    cursor.execute(r)
+    re = cursor.fetchone()
+    reservado = re[0]
+
+    return reservado 
 
 
+
+def dashboard_inicio (request):
+    data = {
+        'usuario':s ,
+        'ganancia' : ganancias(),
+        'pagados' : c_pagados(),
+        'cancelados' : c_cancelados(),
+        'reservados' : c_reservados()
+    }
+    
+    return render( request, 'inicio_dash.html', data)    
