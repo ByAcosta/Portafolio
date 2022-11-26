@@ -81,7 +81,7 @@ def register(request):
         else:
             data['mensaje']= 'No se ha podido registrar el usuario'
 
-    return render(request, 'register.html',data)
+    return render(request,'register.html',data)
 
 def dashboard(request):
     data = {
@@ -429,6 +429,7 @@ def comprar(request):
 
         mail = request.POST.get('email')
         send_email_reserva(mail,rut)
+
     return redirect('reservas')
 
 def lista_reserva_cliente():
@@ -448,16 +449,12 @@ def lista_reserva_cliente():
 def lista_reserva():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
-    out_cur = django_cursor.connection.cursor()
-    
-    cursor.callproc("SP_LISTAR_RESERVAS",[out_cur])
+    sentencia = """select r.id,r.total,r.check_in,r.check_out,r.rut_id,d.nombre as DEPTO,r.estado,u.nombre||' '||u.apellido ,u.email,u.celular 
+    from catalogo_reserva  r join catalogo_depto d on (r.depto_id = d.id_depto )join catalogo_usuario u on(r.rut_id = u.rut)"""
+    cursor.execute(sentencia)
+    reserva = tuple(cursor.fetchall()) 
 
-    lista = []
-
-    for fila in out_cur:
-        lista.append(fila)
-
-    return lista   
+    return reserva
 
 def reservas_cliente(request):
     data = {
@@ -539,7 +536,7 @@ def eliminar_inventario(request, id_i):
 def reservasF(request):
     data = {
         'usuario':s,
-        'reservas':Reserva.objects.all()
+        'reservas': lista_reserva()
     }
     return render( request, 'reservasF.html', data)
 
@@ -640,15 +637,53 @@ def c_reservados():
 
     return reservado 
 
+def c_reservas_mes():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    meses = [1,2,3,4,5,6,7,8,9,10,11,12]
+    salida = []
+    for x in meses:
+        sentencia = """select count(id) from catalogo_reserva where TO_CHAR(check_in,'mm') = {} and EXTRACT(Year FROM check_in) = EXTRACT(Year FROM sysdate) and estado = 'Pagado'""".format(x)
+        cursor.execute(sentencia)
+        re = cursor.fetchone()
+        salida.append(re)
+    return salida
 
+def ganancias_mes():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    meses = [1,2,3,4,5,6,7,8,9,10,11,12]
+    salida = []
+    for x in meses:
+        sentencia = """select NVL(sum(total),0) from catalogo_reserva where TO_CHAR(check_in,'mm') = {} and EXTRACT(Year FROM check_in) = EXTRACT(Year FROM sysdate) and estado = 'Pagado'""".format(x)
+        cursor.execute(sentencia)
+        re = cursor.fetchone()
+        salida.append(re)
+    return salida
 
 def dashboard_inicio (request):
+    datos = []
+    dinero = []
+    print(dinero)
+    d = c_reservas_mes()
+    g = ganancias_mes()
+    for x in g:
+        x = x[0]
+        dinero.append(x)
+
+    for x in d:
+        x = x[0]
+        datos.append(x)
     data = {
         'usuario':s ,
         'ganancia' : ganancias(),
         'pagados' : c_pagados(),
         'cancelados' : c_cancelados(),
-        'reservados' : c_reservados()
+        'reservados' : c_reservados(),
+        'c_mes': datos,
+        'g_mes': dinero,
+        'reservas': lista_reserva()
     }
     
     return render( request, 'inicio_dash.html', data)    
+

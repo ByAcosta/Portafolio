@@ -10,13 +10,13 @@
         {% load static %}
         <script src="{% static 'js/dashboard.js' %}"></script>
         <script src="{% static 'js/steps.js' %}"></script>
-        <link href="{%static 'css/styles.css' %}" rel="stylesheet" />
-        <link href="{%static 'css/steps.css' %}" rel="stylesheet" />
+        <link href=" {%static 'css/styles.css' %}" rel="stylesheet" />
+        <!-- <link href=" {%static 'css/steps.css' %}" rel="stylesheet" /> -->
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
     </head>
     <body class="nav-fixed">
         <nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white" id="sidenavAccordion">
@@ -90,7 +90,7 @@
                             <!-- Sidenav Menu Heading (Core)-->
                             <div class="sidenav-menu-heading">Dashboard</div>
 
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'inicio' %}">
                                 <div class="nav-link-icon"><i data-feather="filter"></i></div>
                                 Inicio
                             </a>

@@ -18,27 +18,29 @@
                             <th>Fecha de llegada</th>
                             <th>Fecha de ida</th>
                             <th>Rut</th>
+                            <th>Nombre</th>
                             <th>Depto</th>
                             <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
                         {% for x in reservas%}
-                            {% if x.estado == 'Pagado' or x.estado == 'Reservado' %}
+                            {% if x.6 == 'Pagado' or x.6 == 'Reservado' %}
                                 <tr>
-                                    <td>{{x.id| title}}</td>
-                                    <td>{{x.total| title}}</td>
-                                    <td>{{x.check_in| title}}</td>
-                                    <td>{{x.check_out| title}}</td>
-                                    <td>{{x.rut_id| title}}</td>
-                                    <td>{{x.depto_id| title}}</td>
-                                    <td>{{x.estado| title}}</td>
-                                    {%if x.estado == 'Reservado'%}
+                                    <td>{{x.0| title}}</td>
+                                    <td>{{x.1| title}}</td>
+                                    <td>{{x.2| title}}</td>
+                                    <td>{{x.3| title}}</td>
+                                    <td>{{x.4| title}}</td>
+                                    <td>{{x.7| title}}</td>
+                                    <td>{{x.5| title}}</td>
+                                    <td>{{x.6| title}}</td>
+                                    {%if x.6 == 'Reservado'%}
                                         <td>
-                                            <a href="{% url 'pagarRe' x.id %}" class="btn btn-success btn-sm">Pagar</a>
+                                            <a href="{% url 'pagarRe' x.0 %}" class="btn btn-success btn-sm">Pagar</a>
                                         </td>       
-                                    {%elif x.estado == 'Pagado'%}
+                                    {%elif x.6 == 'Pagado'%}
                                         <td>
-                                            <a href="{% url 'reserva-detail' x.id %}" class="btn btn-success btn-sm">Descargar</a>
+                                            <a href="{% url 'reserva-detail' x.0 %}" class="btn btn-success btn-sm">Descargar</a>
                                         </td>
                                     {%else%}
                                         <td>

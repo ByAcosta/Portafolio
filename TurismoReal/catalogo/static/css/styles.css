@@ -20632,3 +20632,15 @@ pre[class*=language-] {
   display:none;
 
 }
+.ocultar {
+  display: none;
+}
+
+.mostrar {
+  display: block;
+}
+.chart-pie {
+    position: relative;
+    height: 15rem;
+    width: 100%;
+}
