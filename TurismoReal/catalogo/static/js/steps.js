@@ -12,6 +12,7 @@ function showTab(n) {
   if (n == (x.length - 1)) {
     document.getElementById("nextBtn").style.display = "none";
   } else {
+    document.getElementById("nextBtn").style.display = "inline";
     document.getElementById("nextBtn").innerHTML = "Siguiente";
   }
   fixStepIndicator(n)
@@ -19,7 +20,6 @@ function showTab(n) {
 
 function nextPrev(n) {
   var x = document.getElementsByClassName("tab");
-  //if (n == 1 && !validateForm()) return false;
   x[currentTab].style.display = "none";
   currentTab = currentTab + n;
   if (currentTab >= x.length) {
@@ -29,23 +29,6 @@ function nextPrev(n) {
   showTab(currentTab);
 }
 
-// function validateForm() {
-//   var x, y, i, valid = true;
-//   x = document.getElementsByClassName("tab");
-//   //y = x[currentTab].getElementsByTagName("input");
-//   y = x[currentTab].document.querySelectorAll('input[type=date]')
-//   for (i = 0; i < y.length; i++) {
-//     if (y[i].value == "") {
-//       y[i].className += " invalid";
-//       valid = false;
-//     }
-//   }
-//   if (valid) {
-//     document.getElementsByClassName("step")[currentTab].className += " finish";
-//   }
-//   return valid; 
-// }
-
 function fixStepIndicator(n) {
   var i, x = document.getElementsByClassName("step");
   for (i = 0; i < x.length; i++) {
@@ -54,16 +37,14 @@ function fixStepIndicator(n) {
   x[n].className += " active";
 }
 
-function cancelar(){
-  document.getElementById('estado_in').value = "Cancelado"
+function fechas(){
+  fecha1 = document.getElementById('check_in').value
+  fecha2 = document.getElementById('check_out').value
+  let mili = 24 * 60 * 60 * 1000;
+  f1 = Date.parse(fecha1)
+  f2 = Date.parse(fecha2)
+  let miliT = Math.abs(f1 - f2);
+  let cantdias = Math.round(miliT/mili);
+  document.getElementById('dias').value = cantdias
+  console.log(cantdias)
 }
-
-
-// $("#div_tour").hide();
-// $("#switch_serv").click(function() {
-//     if($(this).is(":checked")) {
-//         $("#div_tour").show(300);
-//     } else {
-//         $("#div_tour").hide(200);
-//     }
-// });

@@ -75,7 +75,7 @@ function addRemoveAnimation() {
 
 //Google maps
 function iniciarMap(){
-    var coord = {lat:-33.3949163 ,lng: -70.7520514};
+    var coord = {lat: -33.3696454, lng: -70.4683196};
     var map = new google.maps.Map(document.getElementById('map'),{
         zoom: 15,
         center: coord

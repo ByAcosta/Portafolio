@@ -14,17 +14,18 @@
         <title>Turismo Real</title>
         <!-- CSS -->
         {% load static %}
-        <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-        <link rel="stylesheet" href="{% static 'css/steps.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/steps.css' %}"/>
         {% block extra_css %}
         {% endblock %}
     </head>
     <body>    
         <header style="z-index: 2;">
+            <a href="{% url 'home' %}"><img height="65px" src="../static/img/logo_blanco.png" alt="logo"></a>
             <a href="{% url 'login' %}"><button class="btn-style" id="btn-login">logout</button></a>
             {% for x in usuario %}
-                {% if x.10 == 1 or x.10 == 2 %}
-                    <a href="{% url 'dashboard' %}" ><button class="btn-style" id="btn-dashboard">Dashboard</button></a>
+                {% if x.10 == 1%}
+                    <a href="{% url 'inicio' %}" ><button class="btn-style" id="btn-dashboard">Dashboard</button></a>
                 {% endif %}    
             {% endfor %}    
             <input type="checkbox" id="menyAvPaa">

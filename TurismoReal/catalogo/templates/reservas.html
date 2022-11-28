@@ -28,7 +28,7 @@
                             <td>{{x.4| title}}</td>
                             <td>{{x.5| title}}</td>
                             <td>{{x.6| title}}</td>
-                            {%if x.6 == 'Cancelado'%}
+                            {%if x.6 == 'Cancelado' or x.6 == 'Pagado' %}
                             <td></td>
                             {% else %}
                                 <td>

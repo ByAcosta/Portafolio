@@ -18,19 +18,17 @@
 {%block content %}
 {% load humanize %}
 
-<br>
-
-<div class="row">   
-    <div class="col-12 col-md-6 offset-md-3">
-        <div class="card">
+<div class="container-xl px-4 mt-n10">
+    <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+    <div class="card mb-4">
+        <div class="card-header">Tour</div>
             <div class="card-body">
-                <h1>Tours</h1>
-
-                <table class = "table table-striped table-hover table-responsive-sm">
+                <table id="lista_tour">
                     <tr>
                         <th>ID</th>
+                        <th>Nombre</th>
                         <th>Descripcion</th>
-                        <th>Guia</th>
                         <th>Precio</th>
                         <th>Eliminar</th>
                         <th>Modificar</th>
@@ -40,8 +38,8 @@
                     
                     <tr>
                         <td>{{ t.id_tour | title}}</td>
+                        <td>{{ t.nombre | title}}</td>
                         <td>{{ t.descripcion | title}}</td>
-                        <td>{{ t.nombre_completo_guia | title}}</td>
                         <td>{{ t.precio | title}}</td>
                         <td>
                             <a href="{% url 'eliminar_tour' t.id_tour %}" class = "btn btn-danger btn-sm"> Eliminar </a>
@@ -67,9 +65,9 @@
                     </a>
                 </div>
             </div>
-        </div>        
-    </div>
-</div>  
+    </div>        
+</div>
+ 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -77,4 +75,18 @@
 <script src="{% static 'js/menu.js' %}"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- TABLAS -->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<script type="">
+    window.addEventListener('DOMContentLoaded', event => {
+
+    const datatablesSimple = document.getElementById('lista_tour');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
+</script>
+
 {% endblock %}

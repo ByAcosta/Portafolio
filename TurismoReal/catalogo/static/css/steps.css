@@ -1,16 +1,42 @@
-/* * {
-  box-sizing: border-box;
-} */
-
 body {
   background-color: #ffffff;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding-left: 100px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+}
+
+.left, .right {
+  width: 25%;
+}
+
+.middle {
+  width: 50%;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
 }
 
 #regForm {
   background-color: #eeeaea;
   margin: 100px auto;
   padding: 40px;
-  width: 70%;
+  width: 55%;
   min-width: 300px;
 }
 
@@ -23,7 +49,7 @@ h1 {
   transition: all 0.2s;
   font-size: 17px;
   z-index: 0;
-  color: #f49239;
+  color: #000000;
   opacity: 1;
 }
 
@@ -82,6 +108,13 @@ h1 {
   z-index: 1;
 }
 
+#label-dias {
+  border-top: black;
+  top: 268px;
+  padding-left: 3px;
+  z-index: 1;
+}
+
 .label-form{
   margin-top: 50px;
   margin-left: 10px;
@@ -92,21 +125,22 @@ h1 {
   margin-top: 40px;
   width: 100%;
   font-size: 17px;
-  border: 2px solid #f49239;
-  background: #24262b;
+  border: 2px solid #c9c9c9;
+  background: #ffffff;
   border-radius: 5px;
   outline: none;
   transition: all 0.3s;
-  color: #fff;
+  color: rgb(0, 0, 0);
 }
 
 .label-form::before {
   content: "";
-  height: 2px;
-  background-color: #24262b;
+  height: 20px;
+  background-color: #ffffff;
   position: absolute;
-  top: 16px;
+  top: 4px;
   width: 100%;
+  border-radius: 5px;
   z-index: -1;
 }
 
