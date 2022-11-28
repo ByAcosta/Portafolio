@@ -59,7 +59,6 @@
                         <div class="mb-3 col-md-6">
                             <label for="comuna">Comuna</label>
                             <select class="form-control custom-select" id="comuna" name="comuna">
-                                <option>Seleccionar</option>
                                 {%for x in comunas%}
                                     <option value="{{x.0}}">{{x.1}}</option>
                                 {% endfor %}
@@ -68,7 +67,6 @@
                         <div class="mb-3 col-md-6">
                             <label for="region">Región</label>
                             <select class="form-control custom-select" id="region" name="region">
-                                <option>Seleccionar</option>
                                 {%for x in regiones%}
                                     <option value="{{x.0}}">{{x.1}}</option>
                                  {% endfor %}
@@ -104,7 +102,7 @@
             <div class="card-footer">
                 <div class="small text-center">
                     ¿Ya estás registrado?
-                    <a href="../catalogo/login.html" style="color: #f49237;">¡Inicia sesión!</a>
+                    <a href="{% url 'login' %}" style="color: #f49237;">¡Inicia sesión!</a>
                 </div>
             </div>
         </div>

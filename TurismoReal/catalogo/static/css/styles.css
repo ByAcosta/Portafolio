@@ -20628,3 +20628,19 @@ pre[class*=language-] {
   padding-left: 1rem;
   font-size: 1.25rem;
 }
+#total_checkout{
+  display:none;
+
+}
+.ocultar {
+  display: none;
+}
+
+.mostrar {
+  display: block;
+}
+.chart-pie {
+    position: relative;
+    height: 15rem;
+    width: 100%;
+}

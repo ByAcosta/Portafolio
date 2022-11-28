@@ -4,13 +4,13 @@
 
 {% block content %}
 {% load static %}
-<br>
-<br>
-<br>
-<div class="card">
-    <div class="card-body">
-        <h2>Listado de clientes</h2>
-        <table class="table table-stripped table-hover table-responsive">
+<div class="container-xl px-4 mt-n10">
+    <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+<div class="card mb-4">
+    <div class="card-header">Clientes</div>
+        <div class="card-body">
+            <table id="lista_clientes">
             <tr>
                 <th>Rut</th>
                 <th>Nombre</th>
@@ -19,12 +19,9 @@
                 <th>Celular</th>
                 <th>Comuna</th>
                 <th>Region</th>
-                <th>DirecciÃ³n</th>
+                <th>Direccion</th>
                 <th>Modificar</th>
                 <th>Eliminar</th>
-
-                
-                
 
             </tr>
             
@@ -40,13 +37,8 @@
                 <td>{{ c.region | title}}</td>
                 <td>{{ c.direccion | title}}</td>
                 
-                <td>
-                    <a href="{% url 'modificar_cliente' c.rut %}" class="btn btn-info btn-sm">Modificar</a>                      
-                </td>
-
-                <td>
-                    <a href="{% url 'eliminar_cliente' c.rut %}" class="btn btn-danger btn-sm">Eliminar</a> 
-                </td>
+                <td><a href="{% url 'modificar_cliente' c.rut %}" class="btn btn-info btn-sm">Modificar</a></td>
+                <td><a href="{% url 'eliminar_cliente' c.rut %}" class="btn btn-danger btn-sm">Eliminar</a></tr>
                 
             </tr>
 
@@ -59,15 +51,25 @@
                 <button type="button" class="btn btn-primary btn-sm">Agregar</button>
             </a>
                             
-            <a class="nav-link" href="{% url 'dashboard' %}" style="float: right">
-                <button type="button" class="btn btn-outline-primary btn-sm">Atras</button>
-            </a>
         </div>
    
 
+        </div>
     </div>
 </div>
 
+<!-- TABLAS -->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<script type="">
+    window.addEventListener('DOMContentLoaded', event => {
+
+    const datatablesSimple = document.getElementById('lista_clientes');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
+</script>
 
 
 {% endblock %}

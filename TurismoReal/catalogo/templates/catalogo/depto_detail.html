@@ -1,76 +1,313 @@
-{% extends 'index.html' %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+      <link href='https://fonts.googleapis.com/css?family=Great Vibes' rel='stylesheet'>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <title>Turismo Real</title>
+      <!-- CSS -->
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'css/reserva.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/steps.css' %}" />
+    </head>
+    <body>    
+      <header style="z-index: 101;">
+        <a href="{% url 'home' %}"><img height="65px" src="../static/img/logo_blanco.png" alt="logo"></a>
+        <a href="{% url 'login' %}"><button class="btn-style" id="btn-login">logout</button></a>
+        {% for x in usuario %}
+          {% if x.10 == 1 or x.10 == 2 %}
+            <a href="{% url 'dashboard' %}" ><button class="btn-style" id="btn-dashboard">Dashboard</button></a>
+          {% endif %}    
+        {% endfor %}    
+        <input type="checkbox" id="menyAvPaa">
+        <label class="burger" id="burger" for="menyAvPaa">
+          <div></div>
+          <div></div>
+          <div></div>
+        </label>
+        <nav class="sidenav" id="meny">
+          <a href="#">Ofertas</a>
+          <a href="#">Contacto</a>
+          <a href="#">Nosotros</a>
+          <a href="{% url 'reservas' %}">Mis reservas</a>
+        </nav>
+      </header>
+      <form id="regForm" action="{% url 'pago' %}" method="post">
+        {% csrf_token %}
+        <!-- PRIMER PASO -->
+        <div class="tab ">
+          <h1>INFORMACIÓN PERSONAL</h1>
+          {% for x in usuario %}
+            <!-- RUT -->
+            <input class="text-input-form" id="input-rut" value="{{x.0}}" placeholder="Rut" name="Rut" readonly>
+            <label class="label-form" id="label-rut" for="input-nombre">RUT</label>
+            <!-- NOMBRE -->
+            <input class="text-input-form" id="input-nombre" value="{{x.1}}" placeholder="Nombre" name="fname" readonly>
+            <label class="label-form" id="label-nombre" for="input-nombre">Nombre</label>
+            <!-- APELLIDO -->
+            <input class="text-input-form" id="input-apellido" value="{{x.2}}" placeholder="Apellido" name="lname" readonly>
+            <label class="label-form" id="label-apellido" for="input-apellido">Apellidos</label>
+            <!-- EMAIL -->
+            <input class="text-input-form" id="input-email" value="{{x.4}} "placeholder="ejemplo@gmail.com" name="email">
+            <label class="label-form" id="label-email" for="input-email">Email</label>
+            <!-- TELEFONO -->
+            <label class="label-form" id="label-telefono" for="input-telefono">Teléfono</label>
+            <input class="text-input-form" id="input-telefono" value="{{x.5}}" placeholder="000000000" name="phone">
+          {% endfor %}
+        </div>
+        <!-- SEGUNDO PASO -->
+        <div class="tab">
+          <h1>DETALLE DEPTO</h1>
+          <p><input oninput="this.className = ''" name="id_depto" value="{{ depto.id_depto }}" style="display: none ;" readonly></p>
+          <label class="label-form" id="label-titulo" for="tit_depto">Título</label>
+          <p><input class="text-input-form" id="tit_depto" name="tit_depto" value="{{ depto.nombre }}" readonly></p>
+          <label class="label-form" id="label-descripcion" for="des_depto">Descripcion</label>
+          <p><input class="text-input-form" id="des_depto" name="des_depto" value="{{ depto.descripcion }}" readonly></p>
+          <label class="label-form" id="label-precio" for="precioD">Precio</label>
+          <p><input class="text-input-form" id="precioD" name="precioD" value="{{ depto.precio }}" type="number" readonly></p>
+          <label class="label-form" id="label-habitaciones" for="habitaciones">Habitaciones</label>
+          <p><input class="text-input-form" id="habitaciones" name="habitaciones" value="{{ depto.habitaciones }}" readonly></p>
+        </div>
+        <!-- TERCER PASO -->
+        <div class="tab" id="paso3">
+          <h1>Detalle de la estadía</h1>
+          <br>
+          <div class="row">
+            <div class="column">
+              <p>
+                Fecha de inicio:
+              </p>
+              <p><input oninput="this.className = ''" name="check_in" id="check_in" value="" type="date"></p>
+            </div>
 
-{% block content%}
+            <div class="column">
+              <p>
+                Fecha de término:
+              </p>
+              
+              <p><input  oninput="this.className = ''" name="check_out" id="check_out" value="" type="date"></p>
+            </div>
 
-  <form id="regForm" action="{% url 'pago' %}" method="post">
-    {% csrf_token %}
-    <!-- PRIMER PASO -->
-    <div class="tab ">
-      <h1>INFORMACIÓN PERSONAL</h1>
-      {% for x in usuario %}
-        <!-- RUT -->
-        <input class="text-input-form" id="input-rut" value="{{x.0}}" placeholder="Rut" name="Rut">
-        <label class="label-form" id="label-rut" for="input-nombre">RUT</label>
-        <!-- NOMBRE -->
-        <input class="text-input-form" id="input-nombre" value="{{x.1}}" placeholder="Nombre" name="fname">
-        <label class="label-form" id="label-nombre" for="input-nombre">Nombre</label>
-        <!-- APELLIDO -->
-        <input class="text-input-form" id="input-apellido" value="{{x.2}}" placeholder="Apellido" name="lname">
-        <label class="label-form" id="label-apellido" for="input-apellido">Apellidos</label>
-        <!-- EMAIL -->
-        <input class="text-input-form" id="input-email" value="{{x.4}} "placeholder="ejemplo@gmail.com" name="email">
-        <label class="label-form" id="label-email" for="input-email">Email</label>
-        <!-- TELEFONO -->
-        <label class="label-form" id="label-telefono" for="input-telefono">Teléfono</label>
-        <input class="text-input-form" id="input-telefono" value="{{x.5}}" placeholder="000000000" name="phone">
-        
-      {% endfor %}
-    </div>
-    <!-- SEGUNDO PASO -->
-    <div class="tab">
-      <h1>DETALLE DEPTO</h1>
-      <p><input oninput="this.className = ''" name="id_depto" value="{{ depto.id_depto }}" style="display: none ;"></p>
-      <label class="label-form" id="label-titulo" for="tit_depto">Título</label>
-      <p><input class="text-input-form" id="tit_depto" name="tit_depto" value="{{ depto.nombre }}" ></p>
-      <label class="label-form" id="label-descripcion" for="des_depto">Descripcion</label>
-      <p><input class="text-input-form" id="des_depto" name="des_depto" value="{{ depto.descripcion }}" ></p>
-      <label class="label-form" id="label-precio" for="precioD">Precio</label>
-      <p><input class="text-input-form" id="precioD" name="precioD" value="{{ depto.precio }}" type="number"></p>
-      <label class="label-form" id="label-habitaciones" for="habitaciones">Habitaciones</label>
-      <p><input class="text-input-form" id="habitaciones" name="habitaciones" value="{{ depto.habitaciones }}" ></p>
-    </div>
-    <!-- TERCER PASO RANCIO -->
-    <div class="tab">
-      <h1>Fecha de inicio y término</h1>
-      <br>
-      <p>
-        Fecha de inicio:
-      </p>
-      <!-- <p><input class="date-style" type="date" name="" id="check_in" placeholder="Fecha de llegada" onclick="(this.type='date')" onblur="(this.type='text')" style="color: #fff"></input></p> -->
-      <p><input  oninput="this.className = ''" name="check_in" value="" type="date"></p>
-      <p>
-        Fecha de término:
-      </p>
-    <!-- <p><input class="date-style" type="date" name="" id="check_out" placeholder="Fecha de ida" onclick="(this.type='date')" onblur="(this.type='text')" style="color: #fff"></input></p> -->
-      <p><input  oninput="this.className = ''" name="check_out" value="" type="date"></p>
-    </div>
-    <br><br>
-    <div class="tab">
-      <h1>¡Listo! Tu reserva está casi lista. Al hacer click en <b>Pagar</b> se te rediccionará a la plataforma de pago &#128512;</h1>
-    </div>
-    <div style="overflow:auto;">
-      <div style="float:right; margin-top: 50px;">
-        <button class="btn-step" type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
-        <button class="btn-step" type="button" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
-        <!-- <input class="btn btn-md " id="payBtn" type="submit" style="background-color: #f49237;" value="pagar"> -->
+            <div class="column">
+              <button class="btn btn-primary" type="button" onclick="fechas()" style="margin-top: 15%;">Confirmar fechas</button>
+            </div>
+          </div>
+            
+          <p><input class="text-input-form" id="dias" name="dias" value=0 readonly></p>
+          <label class="label-form" id="label-dias" for="dias">Días totales de su estadía</label>
+          
+        </div>
+        <!-- CUARTO PASO -->
+        <div class="tab">
+          <h1>Servicios extras</h1>
+          <h3>¿Viene acompañado?</h3><br>
+          <input type="checkbox" id="switch_compania" class="switch-input"/>
+          <label for="switch_compania" class="switch"></label>
+          <br>
+          <div class="card col-5" id="div_compania">
+            <div class="card-header">Indique la cantidad de acompañantes</div>
+            <div class="card-body">
+              <input type="number" class="number-compania" name="number_compania" id="number_compania" value=0 style="width: 100%;">
+            </div>
+          </div>
+          <hr>
+          <h3>¿Desea agregar algún servicio extra?</h3><br>
+          <input type="checkbox" id="switch_serv" class="switch-input"/>
+          <label for="switch_serv" class="switch"></label>
+          <br>
+          <div id="div_tour">
+            {% for i in tour %}
+              <div class="card col-5" style="float: left;">
+                <div class="card-header">Tour</div>
+                <div class="card-body">
+                  <input type="text" name="id_tour" id="id_tour" value='' style="display: none;" readonly>
+                  <label for="precio_tour">Precio:</label>
+                  <input type="text" name="precio_tour" id="precio_tour" value=0 readonly style="width: 75%;">
+                  <br><br>
+                  <center>
+                    <input type="radio" class="btn-check btn-sm" id="btn_si_tour" autocomplete="off" checked onclick="siTour()">
+                    <label class="btn btn-outline-success" for="btn_si_tour">Si</label>
+                    <input type="radio" class="btn-check btn-sm" id="btn_no_tour" autocomplete="off" onclick="noTour()">
+                    <label class="btn btn-outline-danger" for="btn_no_tour">No</label>
+                  </center>
+                </div>
+            </div>
+            <script type="text/JavaScript">
+              function noTour(){
+                document.getElementById('precio_tour').value = 0
+                document.getElementById('id_tour').value = ''
+              }
+              function siTour(){
+                document.getElementById('precio_tour').value = {{i.precio}}
+                document.getElementById('id_tour').value = {{i.id_tour}}
+              }
+            </script>
+            {% endfor %}
+            {% for x in transporte %}
+            <div class="card col-5" style="float: right;">
+              <div class="card-header">Transporte</div>
+              <div class="card-body">
+                <input type="text" name="idTr" id="idTr" value='' style="display: none;" readonly>
+                <label for="precioTr">Precio:</label>
+                <input type="text" name="precioTr" id="precioTr" value=0 readonly style="width: 75%;">
+                <br><br>
+                <center>
+                  <input type="radio" class="btn-check btn-sm" id="success-outlined" autocomplete="off" checked onclick="si()">
+                  <label class="btn btn-outline-success" for="success-outlined">Si</label>
+                  <input type="radio" class="btn-check btn-sm" id="danger-outlined" autocomplete="off" onclick="no()">
+                  <label class="btn btn-outline-danger" for="danger-outlined">No</label>
+                </center>
+              </div>
+          </div>
+          <script type="text/JavaScript">
+            function no(){
+              document.getElementById('precioTr').value = 0
+              document.getElementById('idTr').value = ''
+            }
+            function si(){
+              document.getElementById('precioTr').value = {{x.precio}}
+              document.getElementById('idTr').value = {{x.id_t}}
+            }
+          </script>
+          {% endfor %}
+          </div>
+        </div>
+        <!-- QUINTO PASO -->
+        <center>
+          <div class="tab" id="paypal-button-container">
+            <h1>Pago</h1>
+            <br>
+          </div>
+        </center>
+        <div style="overflow:auto;">
+          <div style="float:right; margin-top: 50px;">
+            <button class="btn btn-outline-danger btn-lg" type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+            <button class="btn btn-primary btn-lg" type="button" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:40px;">
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+        </div>
+      </form>
+    <footer class="footer">
+      <div class="container-footer">
+          <div class="row-footer">
+              <div class="footer-col">
+                  <h4 class="h4-footer">Compañía</h4>
+                  <ul class="ul-footer">
+                      <li class="li-footer"><a class="a-footer" href="">Acerca de nosotros</a></li>
+                      <li class="li-footer"><a class="a-footer" href="">Nuestros servicios</a></li>
+                      <li class="li-footer"><a class="a-footer" href="">Politicas de privacidad</a></li>
+                      <li class="li-footer"><a class="a-footer" href="">Programa de afiliados</a></li>
+                  </ul>
+              </div>
+              <div class="footer-col">
+                  <h4 class="h4-footer">Obtener ayuda</h4>
+                  <ul class="ul-footer">
+                    <li class="li-footer"><a class="a-footer" href="#">FAQ</a></li>
+                    <li class="li-footer"><a class="a-footer" href="#">Opciones de pago</a></li>
+                    <li class="li-footer"><a class="a-footer" href="#">Estado de arriendo</a></li>
+                  </ul>
+              </div>
+              <div class="footer-col">
+                  <h4 class="h4-footer">Promociones</h4>
+                  <ul class="ul-footer">
+                      <li class="li-footer"><a class="a-footer" href="#">Departamentos</a></li>
+                      <li class="li-footer"><a class="a-footer" href="#">Lugares</a></li>
+                      <li class="li-footer"><a class="a-footer" href="#">algo más</a></li>
+                  </ul>
+              </div>
+              <div class="footer-col">
+                  <h4 class="h4-footer">Síguenos</h4>
+                  <div class="social-links">
+                      <a class="a-footer" href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                      <a class="a-footer" href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                      <a class="a-footer" href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                      <a class="a-footer" href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-    <div style="text-align:center;margin-top:40px;">
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-    </div>
-  </form>
+  </footer>
+  <script src="{% static 'js/home.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/steps.js' %}" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik&callback=iniciarMap"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AaQ2xFBB47O22XVC5Up38gVRUdsGvRZD6V5upIKTNIgU4e6AAWBArxnZRLxcwCAt4tJ72ac30uOJ3Kco"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript">
+    $("#div_compania").hide();
+    $("#switch_compania").click(function() {
+        if($(this).is(":checked")) {
+            $("#div_compania").show(300);
+        } else {
+            $("#div_compania").hide(200);
+        }
+    });
+    
+    $("#div_tour").hide();
+    $("#switch_serv").click(function() {
+        if($(this).is(":checked")) {
+            $("#div_tour").show(300);
+        } else {
+            $("#div_tour").hide(200);
+        }
+    });
+  </script>
+  <script>
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: '{{depto.precio}}'
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          document.getElementById("regForm").submit();
+          Swal.fire({
+            "title":"Pago realizado exitosamente",
+            "text":"Usted será redireccionado dentro de unos segundos, por favor espere",
+            "icon": "success",
+            "timer": 5000,
+            "timerProgressBar": true,
+            didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer')
+            }
+            })
+        });
+      }
+    }).render('#paypal-button-container');
 
-{% endblock %}
+  </script>
+</body>
+</html>

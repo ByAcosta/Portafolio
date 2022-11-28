@@ -1,0 +1,71 @@
+{% extends 'dashboard.html' %}
+{% block content%}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<!-- tables js -->
+<div class="container-xl px-4 mt-n10">
+    <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+    <div class="card mb-4">
+        <div class="card-header">Reservas</div>
+            <div class="card-body">
+                <table id="lista_reservas">
+                        <tr>
+                            <th>ID</th>
+                            <th>Precio</th>
+                            <th>Fecha de llegada</th>
+                            <th>Fecha de ida</th>
+                            <th>Rut</th>
+                            <th>Nombre</th>
+                            <th>Depto</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
+                        </tr>
+                        {% for x in reservas%}
+                            {% if x.6 == 'Pagado' or x.6 == 'Reservado' %}
+                                <tr>
+                                    <td>{{x.0| title}}</td>
+                                    <td>{{x.1| title}}</td>
+                                    <td>{{x.2| title}}</td>
+                                    <td>{{x.3| title}}</td>
+                                    <td>{{x.4| title}}</td>
+                                    <td>{{x.7| title}}</td>
+                                    <td>{{x.5| title}}</td>
+                                    <td>{{x.6| title}}</td>
+
+                                    {%if x.6 == 'Reservado'%}
+                                        <td>
+                                            <a href="{% url 'pagarRe' x.0 %}" class="btn btn-success btn-sm">Pagar</a>
+                                        </td>       
+                                    {%elif x.6 == 'Pagado'%}
+                                        <td>
+                                            <a href="{% url 'reserva-detail' x.0 %}" target="_blank" class="btn btn-success btn-sm">Descargar</a>
+                                        </td>
+                                    {%else%}
+                                        <td>
+                                        </td>       
+                                    {%endif%}    
+                                </tr>
+                            {% endif %}
+                        {% endfor%}
+                </table>
+            </div>
+    </div> 
+</div>    
+    
+ 
+
+<!-- TABLAS -->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<script type="">
+    window.addEventListener('DOMContentLoaded', event => {
+
+    const datatablesSimple = document.getElementById('lista_reservas');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
+</script>
+
+{% endblock %}

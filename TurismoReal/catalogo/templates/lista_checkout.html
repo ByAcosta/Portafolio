@@ -1,0 +1,67 @@
+{% extends 'dashboard.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turimos Real</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="{%static 'css/prueba.css' %}" rel="stylesheet" />
+    
+</head>
+
+{% block content %}
+{% load humanize %}
+
+<div class="container-xl px-4 mt-n10">
+    <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+    <div class="card mb-4">
+        <div class="card-header">Lista Checkout</div>
+            <div class="card-body">
+                <table id="lista_checkout">
+            <tr>
+                <th>ID Reserva</th>
+                <th>Multa Infraestructura</th>
+                <th>Multa Inventario</th>
+                <th>Multa Otros</th>
+                <th>Total a Pagar</th>
+                
+            </tr>
+                {% for c in check %}
+                
+                    <tr>
+                        <td>{{ c.id_res }}</td>
+                        <td>{{ c.multa_infraestructura }}</td>
+                        <td>{{ c.multa_inventario }}</td>
+                        <td>{{ c.multa_otros }}</td>
+                        <td>{{ c.total }}</td>
+                        <td>
+                            <a href="{% url 'checkout' c.id_checkout %}" class="btn btn-info btn-sm">Editar</a>                    
+                        </td>
+                        
+                    </tr>
+
+                {% endfor %}          
+                </table>
+            </div>
+    </div>
+</div>
+
+<!-- TABLAS -->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<script type="">
+    window.addEventListener('DOMContentLoaded', event => {
+
+    const datatablesSimple = document.getElementById('lista_checkout');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
+</script>
+
+{% endblock %}
