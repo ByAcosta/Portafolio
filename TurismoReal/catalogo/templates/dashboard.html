@@ -89,40 +89,49 @@
                 
                             <!-- Sidenav Menu Heading (Core)-->
                             <div class="sidenav-menu-heading">Dashboard</div>
-
-                            <a class="nav-link" href="{% url 'inicio' %}">
-                                <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Inicio
-                            </a>
-                            <div class="sidenav-menu-heading">Mantenedores</div>
-
-                            <a class="nav-link" href="{% url 'listar_cliente' %}">
-                                <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Clientes
-                            </a>
-                            <a class="nav-link" href="{% url 'listar_depto' %}">
-                                <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Departamentos
-                            </a>
-                            <a class="nav-link" href="{% url 'servicio_extra' %}">
-                                <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Servicios extras
-                            </a>
                             {% for x in usuario%}
                                 {%if x.10 == 1%}
-                                    <div class="sidenav-menu-heading">Estadisticas</div>
-                                    
-                                    <a class="nav-link" href="#">
+                                <a class="nav-link" href="{% url 'inicio' %}">
+                                    <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                                    Inicio
+                                </a>
+                                {% endif %}    
+                            {% endfor %} 
+
+                            <div class="sidenav-menu-heading">Mantenedores</div>
+                            {% for x in usuario%}
+                                {%if x.10 == 1%}
+                                <a class="nav-link" href="{% url 'listar_cliente' %}">
+                                    <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                                    Clientes
+                                </a>
+                                <a class="nav-link" href="{% url 'servicio_extra' %}">
+                                    <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                                    Servicios extras
+                                </a>
+                                {% endif %}    
+                            {% endfor %}
+
+                            {% for x in usuario%}
+                                {%if x.10 == 1 or x.10 == 2%} 
+                                    <a class="nav-link" href="{% url 'listar_depto' %}">
                                         <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                        Graficos
+                                        Departamentos
                                     </a>
+                                {% endif %}    
+                            {% endfor %}
+
+
+                            {% for x in usuario%}
+                                {%if x.10 == 1 or x.10 == 2%}
+                                    <div class="sidenav-menu-heading">Reservas</div>
                                     <a class="nav-link" href="{% url 'reservasF' %}">
                                         <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                        Reservas
+                                        Check in
                                     </a>
                                     <a class="nav-link" href="{% url 'lista_checkout' %}">
                                         <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                        checkOut
+                                        Check out
                                     </a>
                                 {% endif %}    
                             {% endfor %}    
@@ -160,8 +169,20 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript"> 
-            $('#hola').DataTable();
-        </script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% if messages %}
+            {% for m in messages %}
+                <script>
+                    Swal.fire({
+                            "title":"Felicitaciones",
+                            "text":"{{m}}",
+                            "icon": "success"
+                            })
+                </script>
+            {% endfor %}
+        {% endif %}  
+
+        {% block js %} 
+        {% endblock %}
     </body>
 </html>

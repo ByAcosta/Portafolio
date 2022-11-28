@@ -18,6 +18,9 @@ class Usuario(models.Model):
     region = models.ForeignKey('Region', on_delete=models.CASCADE, null=True)
     comuna = models.ForeignKey('Comuna', on_delete=models.CASCADE, null=True)
     rol = models.ForeignKey('Rol', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.rut  
     
 class Depto(models.Model):
     id_depto = models.AutoField(primary_key=True)
@@ -75,6 +78,7 @@ class Reserva(models.Model):
 
     def get_absolute_url(self):
             return reverse('reserva-detail', args=[int(self.id)])
+          
 
 class Transporte(models.Model):
     id_t = models.AutoField(primary_key=True)

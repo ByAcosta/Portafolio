@@ -1,6 +1,7 @@
 from cgi import print_directory
 from multiprocessing import context
 from sqlite3 import Cursor
+from django.contrib import messages
 from typing_extensions import runtime
 from django.shortcuts import render ,redirect, get_object_or_404
 from django.core.mail import EmailMultiAlternatives
@@ -51,7 +52,6 @@ def home(request):
 def index(request):
     data = {
         'usuario':s,
-        'Depto':lista_deptos(),
         'region':lista_region(),
         'comuna':lista_comuna(),
     }
@@ -86,9 +86,6 @@ def register(request):
 def dashboard(request):
     data = {
         'usuario':s,
-        'Depto':lista_deptos(),
-        'region':lista_region(),
-        'comuna':lista_comuna(),
     }
     return render(request, 'dashboard.html', data)
 
@@ -97,11 +94,11 @@ def mantenedor_C(request):
     data = {
         'form': UsuarioForm()
     }           
-
     if request.method == 'POST':
         formulario = UsuarioForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Agregado Correctamente")
             return redirect(to="listar_cliente")
         else:
             data["mensaje"] = formulario
@@ -136,36 +133,12 @@ def lista_region():
 
     return lista
 
-def lista_deptos():
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    out_cur = django_cursor.connection.cursor()
-
-    cursor.callproc("SP_LISTAR_DEPTOS", [out_cur])
-
-    lista = []
-    for fila in out_cur:
-
-        lista.append(fila)
-
-    return lista 
-
 def registrar(rut,nombre,apellido,username,email,celular,contraseña,direccion,comuna_id,region_id,rol_id):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('SP_REGISTER',[rut,nombre,apellido,username,email,celular,contraseña,direccion,comuna_id,region_id,rol_id,salida])
     return salida.getvalue()
-
-def reservas(request):
-    data = {
-        'Depto':lista_deptos(),
-        'region':lista_region(),
-        'comuna':lista_comuna(),
-        'form':  DeptoForm(),
-    }
-    data['Depto'] = lista_deptos()
-    return render( request, 'reservas.html', data)
    
 class Reservas(generic.DetailView):
     model = Depto
@@ -193,21 +166,16 @@ def agregar_depto(request):
         formulario = DeptoForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Agregado Correctamente")
             return redirect(to="listar_inventario")
         else:
             data["form"] = formulario   
 
     return render(request, 'deptos/agregar.html', data)       
-
 def listar_depto(request):
         departamentos = Depto2.objects.all()
-        comunas = Comuna.objects.all()
-        regiones = Region.objects.all()
-
         data= {
             'departamentos': departamentos,
-            'regiones':regiones,
-            'comunas':comunas,
             'usuario' : s
         }
         return render(request, 'deptos/listar.html', data)
@@ -224,9 +192,10 @@ def modificar_depto(request, id_depto):
     if request.method == 'POST':
         formulario = DeptoForm(data=request.POST, instance=producto, files=request.FILES)
         if formulario.is_valid():
-            formulario.save()
-            return redirect(to="listar_depto")
             data['form'] = formulario
+            formulario.save()
+            messages.success(request, "Modificado Correctamente")
+            return redirect(to="listar_depto")
     
     return render(request, 'deptos/modificar.html', data)     
 
@@ -259,6 +228,7 @@ def tour(request):
         formulario = TourForm (data=request.POST)
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Agregado Correctamente")
             return redirect(to="listar_tour")
         else:
             data["form"] = formulario
@@ -286,6 +256,7 @@ def modificar_tour(request, id_tour):
 
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Modificado Correctamente")
             return redirect(to='listar_tour')
         else:
             data["form"] = formulario
@@ -308,6 +279,7 @@ def transporte(request):
 
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Agregado Correctamente")
             return redirect(to="listar_transporte")
         else:
             data["form"] = formulario
@@ -336,6 +308,7 @@ def modificar_transporte(request, id_t):
 
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Modificado Correctamente")
             return redirect(to='listar_transporte')
         else:
             data["form"] = formulario
@@ -360,7 +333,6 @@ def listar_cliente(request):
 
     return render(request, 'listar_cliente.html', data)
 
-
 def modificar_cliente (request, rut):
     
     cliente = get_object_or_404(Usuario, rut=rut)
@@ -374,6 +346,7 @@ def modificar_cliente (request, rut):
         formulario = UsuarioForm(data=request.POST, instance=cliente, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Modificado Correctamente")
             return redirect(to="listar_cliente")
         data['form'] = formulario
 
@@ -477,6 +450,7 @@ def Cancelar_reserva(request, id):
         formulario = ReservaForm(data=request.POST, instance=Reservas, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Cancelado Correctamente")
             return redirect(to="reservas")
         data['form'] = formulario
 
@@ -503,6 +477,7 @@ def inventario(request):
 
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Agregado Correctamente")
             data["mensaje"] = "Guardado correctamente"
         else:
             data["form"] = formulario
@@ -522,6 +497,7 @@ def modificar_inventario (request, id_i):
         formulario = InventarioForm(data=request.POST, instance=inventario, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Modificado Correctamente")
             return redirect(to="listar_inventario")
         data['form'] = formulario
 
@@ -541,9 +517,7 @@ def reservasF(request):
     return render( request, 'reservasF.html', data)
 
 def Pagar_reserva(request, id):
-    
     Reservas = get_object_or_404(Reserva , id = id)
-
     data = {
         'form': ReservasForm(instance=Reservas),
         'reserva': lista_reserva(),
@@ -553,13 +527,14 @@ def Pagar_reserva(request, id):
         formulario = ReservasForm(data=request.POST, instance=Reservas, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Pagado Correctamente")
             return redirect(to="reservasF")
         data['form'] = formulario
 
     return render(request, 'pagar_reserva.html', data)
 
 def ReservasDetail_view(request, id):
-    reserva = get_object_or_404(Reserva, id=id)
+    reserva = get_object_or_404(Reserva,id=id)
     context = {
         "reserva": reserva
     }
@@ -580,7 +555,8 @@ def checkout(request, id_checkout):
 
         if formulario.is_valid():
             formulario.save()
-            data["mensaje"] = "Guardado correctamente"
+            messages.success(request, "Guardado Correctamente")
+            return redirect(to="lista_checkout")
         else:
             data["form"] = formulario
 
@@ -600,7 +576,7 @@ def lista_checkout(request):
 def ganancias():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
-    sentencia = "select sum(total) as suma  from catalogo_reserva where estado = 'Pagado'"
+    sentencia = "select to_char(sum(total),'9999g999g999') as suma  from catalogo_reserva where estado = 'Pagado'"
     cursor.execute(sentencia)
     ganancia = cursor.fetchone()
     g = ganancia[0]

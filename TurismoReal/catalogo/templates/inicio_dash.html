@@ -152,57 +152,7 @@
             <hr>
             <h2 style="text-align: center;">Reportes</h2>
             <hr> 
-            <div class="card mb-4">
-                <div class="card-header">Reporte Reservas</div>
-                <div class="card-body">
-                    <table id="datatablesSimple">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Precio</th>
-                                <th>Fecha de llegada</th>
-                                <th>Fecha de Salida</th>
-                                <th>Rut</th>
-                                <th>Nombre</th>
-                                <th>Depto</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Precio</th>
-                                <th>Fecha de llegada</th>
-                                <th>Fecha de Salida</th>
-                                <th>Rut</th>
-                                <th>Nombre</th>
-                                <th>Depto</th>
-                                <th>Estado</th>
-                            </tr>
-                        </tfoot>    
-                        <tbody>
-                            {% for x in reservas%}
-                            <tr>
-                                <td>{{x.0| title}}</td>
-                                <td>{{x.1}}</td>
-                                <td>{{x.2}}</td>
-                                <td>{{x.3}}</td>
-                                <td>{{x.4}}</td>
-                                <td>{{x.7}}</td>
-                                <td>{{x.5}}</td>
-                                {%if x.6 == 'Reservado'%}
-                                    <td><div class="badge bg-primary text-white rounded-pill">{{x.6}}</div></td>
-                                {%elif x.6 == 'Pagado'%}
-                                    <td><div class="badge bg-success text-white rounded-pill">{{x.6}}</div></td>
-                                {%else%}   
-                                    <td><div class="badge bg-danger text-white rounded-pill">{{x.6}}</div></td> 
-                                {%endif%}   
-                            </tr>
-                            {% endfor%}  
-                        </tbody>
-                    </table>
-                </div>
-            </div>              
+            {% include "reportestabla.html" %}
         </div>
     </div>
 </div>
@@ -304,6 +254,7 @@ var myBarChart = new Chart(ctx2, {
     }    
 });
 </script>
+
 <script type="">
 var ctx3 = document.getElementById("myBarChart2");
 var myBarChart = new Chart(ctx3, {
@@ -316,7 +267,14 @@ var myBarChart = new Chart(ctx3, {
             hoverBackgroundColor: "rgba(0, 97, 242, 0.9)",
             borderColor: "#4e73df",
             data: {{g_mes|safe}},
-            maxBarThickness: 30
+            maxBarThickness: 30,
+            fill: true,
+            backgroundColor: 'rgba(0, 97, 242, 0.5)',
+            borderColor: 'rgb(0, 97, 242, 1)',
+            pointBackgroundColor: 'rgb(0, 97, 242, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
         }]
     },
     options: {
@@ -354,20 +312,6 @@ var myBarChart = new Chart(ctx3, {
             }]
         }
     }    
-});
-</script>
-<!-- TABLAS -->
-<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
-<script type="">
-    window.addEventListener('DOMContentLoaded', event => {
-    // Simple-DataTables
-    // https://github.com/fiduswriter/Simple-DataTables/wiki
-
-    const datatablesSimple = document.getElementById('datatablesSimple');
-    if (datatablesSimple) {
-        new simpleDatatables.DataTable(datatablesSimple);
-    }
 });
 </script>
 {% endblock %}

@@ -6,12 +6,10 @@
 <div class="container-xl px-4 mt-n10">
     <br><br><br><br><br><br>
         <br><br><br><br><br><br>
-        <div class="card">
-            <div class="card-header">
-                <center><h2>RESERVAS</h2></center>
-            </div>
+    <div class="card mb-4">
+        <div class="card-header">Reservas</div>
             <div class="card-body">
-                    <table class="table table-stripped table-hover table-responsive" id="hola">
+                <table id="lista_reservas">
                         <tr>
                             <th>ID</th>
                             <th>Precio</th>
@@ -34,6 +32,7 @@
                                     <td>{{x.7| title}}</td>
                                     <td>{{x.5| title}}</td>
                                     <td>{{x.6| title}}</td>
+
                                     {%if x.6 == 'Reservado'%}
                                         <td>
                                             <a href="{% url 'pagarRe' x.0 %}" class="btn btn-success btn-sm">Pagar</a>
@@ -49,14 +48,24 @@
                                 </tr>
                             {% endif %}
                         {% endfor%}
-                    </table>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <a class="btn btn-md btn-primary" href="{%url 'dashboard' %}" style="margin:5px ;">volver</a>
-                </div>
-            </div> 
-        </div>    
-    </div>
-    <br><br><br><br>   
-</div>   
+                </table>
+            </div>
+    </div> 
+</div>    
+    
+ 
+
+<!-- TABLAS -->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<script type="">
+    window.addEventListener('DOMContentLoaded', event => {
+
+    const datatablesSimple = document.getElementById('lista_reservas');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
+</script>
+
 {% endblock %}

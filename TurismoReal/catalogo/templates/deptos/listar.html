@@ -15,86 +15,85 @@
 
 {% block content %}
 {% load humanize %}
-<br>
-<br>
-<br>
-<div class="card">
-    <div class="card-body">
-        <h1>Lista de Departamentos</h1>
-        <div class="card card-header-actions mx-auto">
-            <div class="card-header">
-                <div>
-
-                    <a class="btn btn-warning btn-sm" href="{% url 'listar_inventario' %}" role="button">Inventario</a>
-                    <a class="btn btn-success btn-sm" href="{% url 'agregar_depto' %}" role="button">Añadir Departamento</a>
-
-                </div>
-            </div>
-        </div>
-        <table class="table table-striped table-hover table.responsive-sm">
-            <tr>
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>HABITACIONES</th>
-                <th>PRECIO</th>
-                <th>DISPONIBLE</th>
-                <th>COMUNA</th>
-                <th>REGION</th>
-                <th>OPCIONES</th>
-            </tr>
-            {% for p in departamentos %}
+<div class="container-xl px-4 mt-n10">
+    <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+    <div class="card mb-4">
+        <div class="card-header">Departamentos</div>
+            <div class="card-body">
+                <table id="lista_deptos">
                 <tr>
-                    <!-- ID -->
-                    <td>{{ p.id_depto }}</td>
-
-                    <!-- NOMRBE -->
-                    <td>{{ p.nombre | title }}</td>
-
-                    <!-- HABITACIONES -->
-                    <td>{{ p.habitaciones }}</td>
-
-                    <!-- PRECIO -->
-                    <td>$ {{ p.precio | intcomma }}</td>
-
-                    <!-- DISPONIBLE -->
-                    <td>
-                        {% if p.disponible %}
-                        SI
-                        {% else %}
-                        NO
-                        {% endif %}
-                    </td>
-                    
-                    <!-- COMUNA -->
-
-                    <td>{{ p.comuna_id }}</td>
-                  
-                    <!-- REGION -->
-                     <td>{{ p.region_id }}</td>
-
-                    <!-- OPCIONES -->
-                    <td>
-                        <a href="{% url 'modificar_depto' p.id_depto %}" class="btn btn-info btn-sm">Modificar</a>
-                        <a href="#" onclick="eliminarDepto({{ p.id_depto }})" class="btn btn-danger btn-sm">Eliminar</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        {% if messages %}
-                {% for m in messages %}
-                <script>
-                    Swal.fire({
-                        "title":"Felicitaciones",
-                        "text":"{{m}}",
-                        "icon": "success"
-                    })
-                </script>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Habitaciones</th>
+                    <th>Precio</th>
+                    <th>Disponible</th>
+                    <th>Comuna</th>
+                    <th>Region</th>
+                    <th>Modificar</th>
+                    {% for x in usuario %}
+                        {% if x.10 == 1%}
+                        <th>Eliminar</th>
+                        {% endif %}    
                 {% endfor %}
-        {% endif %}
+                </tr>
+                {% for p in departamentos %}
+                    <tr>
+                        <!-- ID -->
+                        <td>{{ p.id_depto }}</td>
+
+                        <!-- NOMRBE -->
+                        <td>{{ p.nombre | title }}</td>
+
+                        <!-- HABITACIONES -->
+                        <td>{{ p.habitaciones }}</td>
+
+                        <!-- PRECIO -->
+                        <td>$ {{ p.precio | intcomma }}</td>
+
+                        <!-- DISPONIBLE -->
+                        <td>
+                            {% if p.disponible %}
+                            SI
+                            {% else %}
+                            NO
+                            {% endif %}
+                        </td>
+                        
+                        <!-- COMUNA -->
+
+                        <td>{{ p.comuna|title }}</td>
+                    
+                        <!-- REGION -->
+                        <td>{{ p.region|title }}</td>
+
+                        <!-- OPCIONES -->
+                        <td><a href="{% url 'modificar_depto' p.id_depto %}" class="btn btn-info btn-sm">Modificar</a></td>
+                        {% for x in usuario %}
+                            {% if x.10 == 1%}
+                                <td><a href="#" onclick="eliminarDepto({{ p.id_depto }})" class="btn btn-danger btn-sm">Eliminar</a></td>
+                            {% endif %}    
+                        {% endfor %}  
+                    </tr>
+                {% endfor %}
+            </table>
+
+            
+                <div>
+                <center>
+                    <a class="btn btn-warning btn-sm" href="{% url 'listar_inventario' %}" role="button" style='width:180px; height:35px'>Inventario Departamento</a>
+                    {% for x in usuario %}
+                        {% if x.10 == 1%}
+                            <a class="btn btn-success btn-sm" href="{% url 'agregar_depto' %}" role="button" style='width:180px; height:35px'>Añadir Departamento </a>
+                        {% endif %}    
+                    {% endfor %}
+                </center>
+                </div>
+               
+            
+        </div>
     </div>
 </div>
-
 {% block js %}
 
 <script>
@@ -116,8 +115,22 @@
             }
         })
     } 
+
 </script>
 
 {% endblock %}
+
+<!-- TABLAS -->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<script type="">
+    window.addEventListener('DOMContentLoaded', event => {
+
+    const datatablesSimple = document.getElementById('lista_deptos');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
+</script>
 
 {% endblock %}

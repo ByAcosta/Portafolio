@@ -27,6 +27,8 @@
             {% for x in usuario %}
                 {% if x.10 == 1%}
                     <a href="{% url 'inicio' %}" ><button class="btn-style" id="btn-dashboard">Dashboard</button></a>
+                {% elif x.10 == 2%}
+                    <a href="{% url 'listar_depto' %}" ><button class="btn-style" id="btn-dashboard">Dashboard</button></a>    
                 {% endif %}    
             {% endfor %}    
             <input type="checkbox" id="menyAvPaa">
