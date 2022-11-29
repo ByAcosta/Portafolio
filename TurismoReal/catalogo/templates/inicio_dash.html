@@ -210,8 +210,8 @@ var myBarChart = new Chart(ctx2, {
         labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         datasets: [{
             label: "",
-            backgroundColor: "rgba(0, 97, 242, 1)",
-            hoverBackgroundColor: "rgba(0, 97, 242, 0.9)",
+            backgroundColor: "rgba(0,172,105,0.7)",
+            hoverBackgroundColor: "rgba(0,172,105,0.9)",
             borderColor: "#4e73df",
             data: {{c_mes|safe}},
             maxBarThickness: 30
@@ -263,18 +263,18 @@ var myBarChart = new Chart(ctx3, {
         labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         datasets: [{
             label: "",
-            backgroundColor: "rgba(0, 97, 242, 1)",
-            hoverBackgroundColor: "rgba(0, 97, 242, 0.9)",
+            backgroundColor: "rgba(0,172,105,1)",
+            hoverBackgroundColor: "rgba(0,172,105, 0.9)",
             borderColor: "#4e73df",
             data: {{g_mes|safe}},
             maxBarThickness: 30,
             fill: true,
-            backgroundColor: 'rgba(0, 97, 242, 0.5)',
-            borderColor: 'rgb(0, 97, 242, 1)',
-            pointBackgroundColor: 'rgb(0, 97, 242, 1)',
+            backgroundColor: 'rgba(0,172,105, 0.5)',
+            borderColor: 'rgb(0,172,105, 1)',
+            pointBackgroundColor: 'rgb(0,172,105, 1)',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(255, 99, 132)'
+            pointHoverBorderColor: 'rgb(0,172,105)'
         }]
     },
     options: {
